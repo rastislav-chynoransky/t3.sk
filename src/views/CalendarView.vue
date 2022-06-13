@@ -1,5 +1,5 @@
 <template>
-  <div class="font-univers text-black">
+  <div class="font-media text-black">
     <div @click="scrollToToday"  class="active:bg-highlight bg-white/50 box-content border-[black] border-b-3 border-r-3 cursor-pointer fixed h-8 leading-8 left-0 text-base text-center text-black top-0 w-8 z-50">T3</div>
 
     <div class="border-[black] border-b-3 lg:border-x-3 top-0 grid grid-cols-calendar leading-8 ml-8 sticky text-center text-base w-fit lg:w-auto z-20 uppercase">
@@ -40,7 +40,7 @@
     </div>
 
     <button @click="menuOpen = !menuOpen" class="fixed bottom-0 p-5 right-0 text-5xl uppercase z-50 active:text-highlight">
-      Info
+      {{ menuOpen ? 'Close' : 'Info' }}
     </button>
 
     <div v-if="selected" class="bg-[white] border-black lg:border-l-3 bottom-0 fixed overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50">

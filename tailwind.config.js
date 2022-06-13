@@ -12,7 +12,7 @@ module.exports = {
       },
       fontFamily: {
         t3: 't3-retouch',
-        univers: 'mediasans-regular',
+        media: 'mediasans-regular',
         gates: '"BS Gates"',
       },
       gridTemplateColumns: {
