@@ -110,7 +110,7 @@ export default {
       this.calendar[i.toISODate()] = []
     }
 
-    axios.get('/src/assets/events.json')
+    axios.get('/events.json')
       .then(({ data }) => {
         this.events.push(...data)
         this.refreshData()
