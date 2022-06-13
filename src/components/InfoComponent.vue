@@ -33,6 +33,20 @@
         </table>
         <iframe class="grayscale h-64 max-w-lg mt-4 w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2662.676205189234!2d17.114085815648956!3d48.13576737922336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c894ba8a682f7%3A0x5ef920aa01f0c604!2sT3%20-%20kult%C3%BArny%20prostriedok!5e0!3m2!1sen!2ssk!4v1655149273176!5m2!1sen!2ssk" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
+        <h2 class="font-media mt-[3.25rem] text-base uppercase">Newsletter</h2>
+
+        <div class="max-w-lg">
+          <p class="mt-3">Raz mesačne vám zašleme súhrn nadchádzajúcich podujatí a občasne vás budeme informovať o dôležitých novinkách.</p>
+        </div>
+
+        <form action="https://t3.us14.list-manage.com/subscribe" method="POST">
+          <div class="flex max-w-lg mt-3 w-full">
+            <input type="email" name="email" class="block border-2 border-r-0 border-black bg-transparent grow placeholder:text-black px-3 py-1.5" placeholder="e-mail">
+            <button class="bg-black block px-3 text-sm text-white [font-variation-settings:'wght'_600]">Odoberať</button>
+            <input type="hidden" name="u" value="7c01b30bd3bfc1c97c5551123">
+            <input type="hidden" name="id" value="a21376b9fb">
+          </div>
+        </form>
 
         <h2 class="font-media mt-[3.25rem] text-base uppercase">Fakturačné údaje</h2>
         <p class="mt-3">
