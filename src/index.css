@@ -4,15 +4,6 @@
 
 @layer base {
     @font-face {
-        font-family: 't3';
-        src: url('/src/assets/fonts/T3-Regular.woff2') format('woff2'),
-            url('/src/assets/fonts/T3-Regular.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-    }
-
-    @font-face {
         font-family: 't3-retouch';
         src: url('/src/assets/fonts/t3-retouch-Regular.woff2') format('woff2'),
             url('/src/assets/fonts/t3-retouch-Regular.woff') format('woff');
@@ -28,6 +19,12 @@
         font-weight: normal;
         font-style: normal;
         font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'BS Gates';
+        src: url('/src/assets/fonts/BS-Gates.woff2') format('woff2'),
+            url('/src/assets/fonts/BS-Gates.woff') format('woff');
     }
 
     td {

@@ -17,9 +17,9 @@
             <path class="fill-transparent stroke-highlight stroke-[9px] [stroke-linejoin:bevel]" ></path>
         </svg>
 
-        <div class="aspect-square border-r-3 border-b-3 border-highlight leading-tighter relative" v-for="(events, date) in calendar" :key="date">
+        <div class="aspect-square leading-tighter relative" v-for="(events, date) in calendar" :key="date">
           <div v-if="isToday(date)" class="relative -top-8" ref="today"></div>
-          <div class="h-full">
+          <div class="h-full border-b-3 border-r-3 border-highlight">
             <div class="cursor-pointer group h-full" @click="click(date)" v-if="events.length">
               <div :class="[ date == selected ? 'bg-highlight' : '' ]" class="absolute flex h-full justify-center rounded-[50%] transition-[border-radius] group-hover:bg-highlight w-full z-20">
                   <div :class="[ date == selected ? 'text-white' : 'text-highlight' ]" class="font-t3 self-center group-hover:text-white text-[clamp(5rem,8.5vw,8.5vw)] group-hover:[text-shadow:0]" :style="[isToday(date) && date != selected ? 'text-shadow: red 0 0 .5rem' : '']">{{ events[0]._datetime.day }}</div>
@@ -68,7 +68,8 @@
             <span>{{ time(calendar[selected][0]._datetime) }}</span>
           </div>
           <div class="text-right">
-            Odporúčané<br>{{ calendar[selected][0].price }} &euro;
+            vstup<br>{{ calendar[selected][0].price }} &euro;<br>
+            <!-- <a class="underline hover:no-underline active:text-highlight" href="https://www.facebook.com/events/538614304316283" target="_blank">fb event</a> -->
           </div>
         </div>
 
