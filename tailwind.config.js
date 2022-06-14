@@ -25,6 +25,7 @@ module.exports = {
         3: '3px',
       },
       fontSize: {
+        'xxs': ['.5rem'],
         'base': ['1rem', { letterSpacing: '.08em' }],
         '2xl': ['1.5rem', { letterSpacing: '.05em' }],
         '5xl': ['3rem', { letterSpacing: '.03em' }],

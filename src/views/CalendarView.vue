@@ -1,6 +1,6 @@
 <template>
   <div class="font-media text-black">
-    <div @click="scrollToToday"  class="active:bg-highlight bg-white/50 box-content border-[black] border-b-3 border-r-3 cursor-pointer fixed h-8 leading-8 left-0 text-base text-center text-black top-0 w-8 z-30">T3</div>
+    <div @click="scrollToToday"  class="active:bg-highlight bg-white box-content border-[black] border-b-3 border-r-3 cursor-pointer fixed h-8 leading-8 left-0 text-base text-center text-black top-0 w-8 z-30">T3</div>
 
     <div class="border-[black] border-b-3 lg:border-x-3 top-0 grid grid-cols-calendar leading-8 ml-8 sticky text-center text-base w-fit lg:w-auto z-20 uppercase">
         <div style="backdrop-filter: blur(5px);" class="bg-white/50 border-transparent border-l-3 h-8" v-for="weekday in weekdays" :key="weekday">{{ weekday.substring(0, 2) }}</div>
@@ -26,7 +26,9 @@
               </div>
 
               <div class="flex flex-col h-full justify-end overflow-hidden p-2 relative z-30">
-                  <div class="font-gates text-xs tracking-normal leading-snug mb-0.5 uppercase"><span v-if="events?.[0].type" class="bg-black pb-0.5 pt-1 pl-2 pr-2.5 tracking-normal rounded-full text-white">{{ (events?.[0].type) }}</span></div>
+                  <div v-if="events?.[0].type" class="font-gates text-xxs md:text-xs tracking-normal leading-snug mb-0.5 uppercase [font-variation-settings:'wght'_600]">
+                    <span class="bg-black pb-[.075em] pt-[.25em] px-[.5em] tracking-normal rounded-full text-white">{{ (events?.[0].type) }}</span>
+                  </div>
                   <div class="whitespace-pre-line tracking-wide">{{ normalize(events?.[0].name) }}</div>
               </div>
             </div>
@@ -39,15 +41,15 @@
         </div>
     </div>
 
-    <button @click="menuOpen = !menuOpen" class="fixed bottom-0 p-5 right-0 text-5xl uppercase z-50 active:text-highlight">
-      {{ menuOpen ? 'Close' : 'Info' }}
+    <button @click="menuOpen = !menuOpen" class="fixed bottom-0 mx-2 my-2 px-2 right-0 text-5xl uppercase z-50 active:text-highlight">
+      {{ menuOpen ? 'Program' : 'Info' }}
     </button>
 
     <div v-if="selected" class="bg-[white] border-black lg:border-l-3 bottom-0 fixed overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50">
 
       <div style="backdrop-filter: blur(5px);" class="border-black border-b-3 bg-[white]/50 grid grid-cols-3 px-10 sticky top-0 w-full z-10">
         <div><button v-show="prev" class="cursor-pointer  active:text-highlight font-[Maxeville] scale-150 h-8 " @click="selected = prev">&larr;</button></div>
-        <div class="text-center"><button class="text-base uppercase leading-8 active:text-highlight h-8 " @click="selected = null">close</button></div>
+        <div class="text-center"><button class="text-base uppercase leading-8 active:text-highlight h-8 " @click="selected = null">zavrieť</button></div>
         <div class="text-right"><button v-show="next" class="cursor-pointer text-right  active:text-highlight font-[Maxeville] scale-150 h-8 " @click="selected = next">&rarr;</button></div>
       </div>
 
@@ -61,23 +63,32 @@
         <div class="flex font-media justify-between leading-tight text-base mt-3">
           <div class="uppercase">
             <span>{{ calendar[selected][0]._datetime.toFormat('d')  }}</span>
-            <span class="px-1">{{ calendar[selected][0]._datetime.toFormat('MMMM')  }}</span>
+            <span class="px-1">{{ calendar[selected][0]._datetime.toFormat('LLLL')  }}</span>
             <span>{{ calendar[selected][0]._datetime.toFormat('yyyy')  }}</span><br>
             <span>{{ time(calendar[selected][0]._datetime) }}</span>
           </div>
           <div class="text-right">
-            Odporúčané<br>10 &euro;
+            Odporúčané<br>{{ calendar[selected][0].price }} &euro;
           </div>
         </div>
 
         <!-- <img class="mb-6 mt-5" v-if="calendar[selected][0]?.image" :src="`./src/assets/${calendar[selected][0].image}`"> -->
         <!-- <img class="mb-6 mt-5" src="/src/assets/pelada.png"> -->
 
-        <div class="mt-10" v-for="artist in parseArtists(calendar[selected][0].name)" :key="artist">
+        <template v-if="'artists' in calendar[selected][0]">
+          <div class="mt-10" v-for="artist in calendar[selected][0].artists" :key="artist">
+            <h3 class="my-4 text-2xl">{{ artist.name }}</h3>
+            <p class="font-gates my-4 tracking-normal">{{ artist.description }}</p>
+            <iframe v-if="'bandcamp' in artist" style="border: 0; width: 100%; height: 42px;" :src="`https://bandcamp.com/EmbeddedPlayer/album=${artist.bandcamp}/size=small/bgcol=ffffff/linkcol=333333/transparent=true/`" seamless></iframe>
+            <iframe v-if="'soundcloud' in artist" class="w-full" height="166" scrolling="no" frameborder="no" allow="autoplay" :src="`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${artist.soundcloud}&amp;color=%23000000&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false`"></iframe>
+          </div>
+        </template>
+        <template v-else>
+          <div class="mt-10" v-for="artist in parseArtists(calendar[selected][0].name)" :key="artist">
           <h3 class="my-4 text-2xl">{{ normalize(artist) }}</h3>
           <p class="font-gates my-4 tracking-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et odio placerat, accumsan libero non, blandit elit. Ut nec ex a libero finibus mattis id laoreet nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur in lorem imperdiet, dapibus ante eget, tristique turpis. Aliquam ut imperdiet ligula, luctus ullamcorper est. Vestibulum nec nisl molestie, aliquam est vel, posuere nibh. Curabitur dapibus nunc in pretium pulvinar. Curabitur ex tortor, hendrerit in nunc a, imperdiet facilisis neque. Vestibulum laoreet fringilla turpis sit amet pretium. Praesent aliquam augue eu dolor iaculis, vel iaculis purus efficitur. Ut ullamcorper orci nulla, vel iaculis mauris efficitur vel.</p>
-          <iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=4180549449/size=small/bgcol=ffffff/linkcol=333333/transparent=true/" seamless><a href="https://pelada.bandcamp.com/album/movimiento-para-cambio">Movimiento Para Cambio by Pelada</a></iframe>
         </div>
+        </template>
       </div>
     </div>
 
@@ -175,15 +186,14 @@ export default {
         const date = event._datetime.toISODate()
         if (date in this.calendar) {
           this.calendar[date].push(event)
-          if (this.calendar[date].length === 1) {
-            const x = (event._datetime.weekday - 1) * 100 + 50
-            const weeksDiff = Math.floor(event._datetime.diff(this.since, 'weeks').weeks)
-            const y = weeksDiff * 100 + 50
-
-            this.pointToDate.push(event._datetime)
-            this.points.push(new Victor(x, y))
-          }
         }
+
+        const x = (event._datetime.weekday - 1) * 100 + 50
+        const weeksDiff = Math.floor(event._datetime.diff(this.since, 'weeks').weeks)
+        const y = weeksDiff * 100 + 50
+
+        this.pointToDate.push(event._datetime)
+        this.points.push(new Victor(x, y))
       }
 
       this.updatePoints()
@@ -291,7 +301,7 @@ export default {
       return dt.toLocaleString(DateTime.TIME_SIMPLE)
     },
     parseArtists(name) {
-      return name.split('.\n')
+      return name.split(',\n')
     }
   }
 }
