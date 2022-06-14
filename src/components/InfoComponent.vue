@@ -11,7 +11,7 @@
         </div>
 
         <div class="max-w-full">
-          <img class="max-w-lg my-[3.25rem]" src="/src/assets/tyrsak.jpeg" alt="T3 na Tyršovom nábreží">
+          <img class="w-[32rem] my-[3.25rem]" src="/src/assets/tyrsak.jpeg" alt="T3 na Tyršovom nábreží">
         </div>
       </div>
       <div class="lg:w-1/2 px-8">
@@ -41,7 +41,7 @@
 
         <form action="https://t3.us14.list-manage.com/subscribe" method="POST">
           <div class="flex max-w-lg mt-3 w-full">
-            <input type="email" name="email" class="bg-transparent focus:bg-[white] block border-2 border-r-0 border-black grow focus:outline-none placeholder:text-black px-3 py-1.5" placeholder="e-mail">
+            <input type="email" name="email" class="bg-transparent focus:bg-[white] block border-2 border-r-0 border-black grow focus:outline-none rounded-none placeholder:text-black px-3 py-1.5" placeholder="e-mail">
             <button class="bg-black block px-3 text-sm text-white active:text-highlight [font-variation-settings:'wght'_600]">Odoberať</button>
             <input type="hidden" name="u" value="7c01b30bd3bfc1c97c5551123">
             <input type="hidden" name="id" value="a21376b9fb">
