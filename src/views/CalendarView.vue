@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="border-[white] border-l-3 grid grid-cols-calendar ml-8 relative text-lg lg:text-lg xl:text-2xl w-fit lg:w-auto z-10">
+    <div class="border-white border-l-3 grid grid-cols-calendar ml-8 relative text-lg lg:text-lg xl:text-2xl w-fit lg:w-auto z-10">
         <svg ref="svg" class="absolute left-0 right-0 z-10" viewBox="0 0 700 1400" xmlns="http://www.w3.org/2000/svg">
             <path class="fill-transparent stroke-highlight stroke-[9px] [stroke-linejoin:bevel]" ></path>
         </svg>
