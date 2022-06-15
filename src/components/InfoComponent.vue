@@ -1,7 +1,7 @@
 <template>
-  <div class="font-gates text-base tracking-normal bg-white fixed inset-0 overflow-y-auto overscroll-none px-8 py-16 z-40">
+  <div class="font-gates text-base tracking-normal bg-white fixed inset-0 overflow-y-auto overscroll-none px-4 lg:px-8 py-8 lg:py-16 z-40">
     <div class="flex flex-wrap">
-      <div class="lg:w-1/2 px-8">
+      <div class="lg:w-1/2 px-4 lg:px-8">
         <div class="max-w-sm">
           <h2 class="font-media text-base uppercase">O nás</h2>
 
@@ -14,7 +14,7 @@
           <img class="w-[32rem] my-[3.25rem]" src="/src/assets/tyrsak.jpeg" alt="T3 na Tyršovom nábreží">
         </div>
       </div>
-      <div class="lg:w-1/2 px-8">
+      <div class="mb-[3.25rem] lg:w-1/2 px-4 lg:px-8">
         <h2 class="font-media text-base uppercase">Kontakt</h2>
 
         <table class="mt-3">
@@ -69,12 +69,12 @@
         </p>
       </div>
 
-      <div class="w-full px-8">
+      <div class="w-full px-4 lg:px-8 mb-12 lg:mb-0">
         <p class="text-sm">Z verejných zdrojov finančne podporujú</p>
         <div class="flex mt-3">
-          <img src="/src/assets/fpu.svg" class="h-8 pr-8" alt="Fond na podporu umenia">
-          <img src="/src/assets/ba.png" class="h-8 pr-8" alt="Nadácia mesta Bratislavy">
-          <img src="/src/assets/bsk.svg" class="h-8 pr-8" alt="Bratislavský samosprávny kraj">
+          <img src="/src/assets/fpu.svg" class="h-6 lg:h-8 pr-6 lg:pr-8" alt="Fond na podporu umenia">
+          <img src="/src/assets/ba.png" class="h-6 lg:h-8 pr-6 lg:pr-8" alt="Nadácia mesta Bratislavy">
+          <img src="/src/assets/bsk.svg" class="h-6 lg:h-8 pr-6 lg:pr-8" alt="Bratislavský samosprávny kraj">
         </div>
       </div>
 

@@ -29,6 +29,7 @@ module.exports = {
         'xxs': ['.5rem'],
         'base': ['1rem', { letterSpacing: '.08em' }],
         '2xl': ['1.5rem', { letterSpacing: '.05em' }],
+        '4xl': ['2rem', { letterSpacing: '.03em' }],
         '5xl': ['3rem', { letterSpacing: '.03em' }],
       }
     },

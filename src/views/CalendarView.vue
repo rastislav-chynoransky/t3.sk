@@ -48,19 +48,19 @@
       </div>
     </div>
 
-    <button @click="menuOpen = !menuOpen" class="fixed bottom-0 mx-2 my-2 px-2 right-0 text-5xl uppercase z-50 active:text-highlight">
+    <button @click="menuOpen = !menuOpen" class="fixed bottom-0 mx-2 my-2 px-2 right-0 text-4xl lg:text-5xl uppercase z-50 active:text-highlight">
       {{ menuOpen ? 'Program' : 'Info' }}
     </button>
 
     <div v-if="selected" class="bg-[white] border-black lg:border-l-3 bottom-0 fixed overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50">
 
-      <div style="backdrop-filter: blur(5px);" class="border-black border-b-3 bg-[white]/50 grid grid-cols-3 px-10 sticky top-0 w-full z-10">
+      <div style="backdrop-filter: blur(5px);" class="border-black border-b-3 bg-[white]/50 grid grid-cols-3 px-5 lg:px-10 sticky top-0 w-full z-10">
         <div><button v-show="prev" class="cursor-pointer  active:text-highlight font-[Maxeville] scale-150 h-8 " @click="selected = prev">&larr;</button></div>
         <div class="text-center"><button class="text-base uppercase leading-8 active:text-highlight h-8 " @click="selected = null">zavrieť</button></div>
         <div class="text-right"><button v-show="next" class="cursor-pointer text-right  active:text-highlight font-[Maxeville] scale-150 h-8 " @click="selected = next">&rarr;</button></div>
       </div>
 
-      <div class="mx-10 my-10 pb-14 relative">
+      <div class="mx-5 lg:mx-10 my-10 pb-14 relative">
 
         <!-- <div v-if="calendar[selected][0].type" class="font-gates text-xs tracking-normal leading-snug mb-0.5 uppercase">
           <span class="bg-black pb-0.5 pt-1 pl-2 pr-2.5 rounded-full text-[white] uppercase">{{ (calendar[selected][0].type) }}</span>
