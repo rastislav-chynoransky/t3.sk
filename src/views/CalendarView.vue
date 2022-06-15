@@ -28,7 +28,7 @@
             <div class="h-full border-b-3 border-r-3 border-highlight">
               <div class="cursor-pointer group h-full" @click="click(date)" v-if="events.length">
                 <div :class="[ date == selected ? 'bg-highlight' : '' ]" class="absolute flex h-full justify-center rounded-[50%] transition-[border-radius] group-hover:bg-highlight w-full z-20">
-                    <div :class="[ date == selected ? 'text-white' : 'text-highlight' ]" class="font-t3 self-center group-hover:text-white text-[clamp(5rem,8.5vw,8.5vw)] group-hover:[text-shadow:0]" :style="[isToday(date) && date != selected ? 'text-shadow: red 0 0 .5rem' : '']">{{ events[0]._datetime.day }}</div>
+                    <div :class="[ isToday(date) ? 'text-red' : (date == selected ? 'text-white' : 'text-highlight group-hover:text-white') ]" class="font-t3 self-center text-[clamp(5rem,8.5vw,8.5vw)]">{{ events[0]._datetime.day }}</div>
                 </div>
 
                 <div class="flex flex-col h-full justify-end overflow-hidden p-2 relative z-30">
@@ -40,7 +40,7 @@
               </div>
               <div class="h-full" v-else-if="isToday(date)">
                 <div class="absolute flex h-full justify-center w-full">
-                    <div class="font-t3 self-center text-[clamp(5rem,9vw,9vw)] text-white" style="text-shadow: red 0 0 .5rem">{{ now.day }}</div>
+                    <div class="font-t3 self-center text-[clamp(5rem,9vw,9vw)] text-red">{{ now.day }}</div>
                 </div>
               </div>
             </div>

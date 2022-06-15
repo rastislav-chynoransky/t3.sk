@@ -9,6 +9,7 @@ module.exports = {
         black: '#000',
         highlight: '#e5ff00',
         white: '#d3d3d3',
+        red: '#f28000'
       },
       fontFamily: {
         t3: 't3-retouch',
