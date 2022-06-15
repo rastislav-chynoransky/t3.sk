@@ -9,7 +9,7 @@
     <div style="backdrop-filter: blur(5px);" class="box-content fixed bg-white/50 border-black border-r-3 bottom-0 left-0 top-8 w-8 z-20">
     </div>
 
-    <div class="flex">
+    <div class="flex w-fit">
       <div class="sticky left-0 z-20 w-8 shrink-0">
         <div class="text-base leading-8 uppercase z-20" :style="`height: max(8rem * ${month.length}, (100vw - 2rem)/7 * ${month.length});`" v-for="month in [{datetime: now, start: 0, length: 4}, {datetime: now.plus({ months: 1}), start: 4, length: 5}, {datetime: now.plus({ months: 2}), start: 9, length: 5}]" :key="month.start">
           <div v-sticky="{topSpacing: 32}">
