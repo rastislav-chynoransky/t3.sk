@@ -51,7 +51,7 @@
                     }}</span>
                     <span>{{ event._datetime.toFormat('yyyy') }}</span
                     ><br />
-                    <span>{{ event.attributes.time }}</span>
+                    <span>{{ time(event._datetime) }}</span>
                 </div>
                 <div class="text-right">
                     vstup<br />{{ event.attributes.price }} &euro;<br />
