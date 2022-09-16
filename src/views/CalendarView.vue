@@ -100,16 +100,16 @@
                                 class="flex flex-col h-full justify-end overflow-hidden p-2 relative z-30"
                             >
                                 <div
-                                    v-if="events?.[0].type"
+                                    v-if="events?.[0].attributes.type"
                                     class="font-gates text-xxs md:text-xs tracking-normal leading-snug mb-0.5 uppercase [font-variation-settings:'wght'_600]"
                                 >
                                     <span
                                         class="bg-black pb-[.075em] pt-[.25em] px-[.5em] tracking-normal rounded-full text-white"
-                                        >{{ events?.[0].type }}</span
+                                        >{{ events?.[0].attributes.type }}</span
                                     >
                                 </div>
                                 <div class="whitespace-pre-line tracking-wide">
-                                    {{ normalize(events?.[0].name) }}
+                                    {{ events?.[0].attributes.title }}
                                 </div>
                             </div>
                         </div>
@@ -173,11 +173,11 @@
             </div>
 
             <div class="mx-5 lg:mx-10 my-10 pb-14 relative">
-                <!-- <div v-if="calendar[selected][0].type" class="font-gates text-xs tracking-normal leading-snug mb-0.5 uppercase">
-          <span class="bg-black pb-0.5 pt-1 pl-2 pr-2.5 rounded-full text-[white] uppercase">{{ (calendar[selected][0].type) }}</span>
+                <!-- <div v-if="calendar[selected][0].attributes.type" class="font-gates text-xs tracking-normal leading-snug mb-0.5 uppercase">
+          <span class="bg-black pb-0.5 pt-1 pl-2 pr-2.5 rounded-full text-[white] uppercase">{{ (calendar[selected][0].attributes.type) }}</span>
         </div> -->
-                <!-- <span class="font-gates tracking-normal absolute -top-6 ">{{ normalize(calendar[selected][0].type) }}</span> -->
-                <!-- <h2 class="leading-tighter mr-20 text-2xl whitespace-pre-line">{{ normalize(calendar[selected][0].name) }}</h2> -->
+                <!-- <span class="font-gates tracking-normal absolute -top-6 ">{{ calendar[selected][0].attributes.type }}</span> -->
+                <!-- <h2 class="leading-tighter mr-20 text-2xl whitespace-pre-line">{{ calendar[selected][0].attributes.title }}</h2> -->
                 <div
                     class="flex font-media justify-between leading-tight text-base mt-3"
                 >
@@ -196,40 +196,45 @@
                     </div>
                     <div class="text-right">
                         vstup<br />{{
-                            calendar[selected][0].price
+                            calendar[selected][0].attributes.price
                         }}
                         &euro;<br />
                         <!-- <a class="underline hover:no-underline active:text-highlight" href="https://www.facebook.com/events/538614304316283" target="_blank">fb event</a> -->
                     </div>
                 </div>
 
-                <!-- <img class="mb-6 mt-5" v-if="calendar[selected][0]?.image" :src="`./src/assets/${calendar[selected][0].image}`"> -->
+                <!-- <img class="mb-6 mt-5" v-if="calendar[selected][0]?.attributes.image" :src="`./src/assets/${calendar[selected][0].attributes.image}`"> -->
                 <!-- <img class="mb-6 mt-5" src="/src/assets/pelada.png"> -->
 
-                <template v-if="'artists' in calendar[selected][0]">
+                <template
+                    v-if="calendar[selected][0].attributes.artists.data.length"
+                >
                     <div
                         class="mt-10"
-                        v-for="artist in calendar[selected][0].artists"
+                        v-for="artist in calendar[selected][0].attributes
+                            .artists.data"
                         :key="artist"
                     >
-                        <h3 class="my-4 text-2xl">{{ artist.name }}</h3>
+                        <h3 class="my-4 text-2xl">
+                            {{ artist.attributes.name }}
+                        </h3>
                         <p class="font-gates my-4 tracking-normal">
-                            {{ artist.description }}
+                            {{ artist.attributes.description }}
                         </p>
                         <iframe
-                            v-if="'bandcamp' in artist"
+                            v-if="'bandcamp' in artist.attributes"
                             style="border: 0; width: 100%; height: 42px"
-                            :src="`https://bandcamp.com/EmbeddedPlayer/album=${artist.bandcamp}/size=small/bgcol=ffffff/linkcol=333333/transparent=true/`"
+                            :src="`https://bandcamp.com/EmbeddedPlayer/album=${artist.attributes.bandcamp}/size=small/bgcol=ffffff/linkcol=333333/transparent=true/`"
                             seamless
                         ></iframe>
                         <iframe
-                            v-if="'soundcloud' in artist"
+                            v-if="'soundcloud' in artist.attributes"
                             class="w-full"
                             height="166"
                             scrolling="no"
                             frameborder="no"
                             allow="autoplay"
-                            :src="`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${artist.soundcloud}&amp;color=%23000000&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false`"
+                            :src="`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${artist.attributes.soundcloud}&amp;color=%23000000&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false`"
                         ></iframe>
                     </div>
                 </template>
@@ -237,11 +242,11 @@
                     <div
                         class="mt-10"
                         v-for="artist in parseArtists(
-                            calendar[selected][0].name
+                            calendar[selected][0].attributes.title
                         )"
                         :key="artist"
                     >
-                        <h3 class="my-4 text-2xl">{{ normalize(artist) }}</h3>
+                        <h3 class="my-4 text-2xl">{{ artist }}</h3>
                         <p class="font-gates my-4 tracking-normal">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Nulla et odio placerat, accumsan libero non,
@@ -306,8 +311,12 @@ export default {
             this.calendar[i.toISODate()] = []
         }
 
-        axios.get('/events.json').then(({ data }) => {
-            this.events.push(...data)
+        const url = `${
+            import.meta.env.VITE_API_URL
+        }/events?populate=*&sort[0]=start`
+
+        axios.get(url).then(({ data }) => {
+            this.events.push(...data.data)
             this.refreshData()
 
             this.$nextTick(() => {
@@ -347,18 +356,12 @@ export default {
     methods: {
         refreshData() {
             for (const event of this.events) {
-                event._datetime = DateTime.fromISO(event.start)
+                event._datetime = DateTime.fromISO(event.attributes.start)
                 const date = event._datetime.toISODate()
                 this.dates.push(event._datetime)
                 if (date in this.calendar) {
                     this.calendar[date].push(event)
                 }
-
-                const x = (event._datetime.weekday - 1) * 100 + 50
-                const weeksDiff = Math.floor(
-                    event._datetime.diff(this.since, 'weeks').weeks
-                )
-                const y = weeksDiff * 100 + 50
             }
         },
         click(date) {
@@ -371,9 +374,6 @@ export default {
             this.$refs.today[0].scrollIntoView({
                 behavior: 'smooth',
             })
-        },
-        normalize(str) {
-            return str
         },
         date(dt) {
             return dt.toLocaleString(DateTime.DATE_FULL)
