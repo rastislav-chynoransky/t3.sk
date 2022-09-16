@@ -58,16 +58,7 @@
             <div
                 class="border-white border-l-3 grid grid-cols-calendar relative text-lg lg:text-lg xl:text-2xl w-fit lg:w-auto z-10"
             >
-                <svg
-                    ref="svg"
-                    class="absolute left-0 right-0 z-10"
-                    viewBox="0 0 700 1400"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        class="fill-transparent stroke-highlight stroke-[9px] [stroke-linejoin:bevel]"
-                    ></path>
-                </svg>
+                <PathComponent :dates="dates" />
 
                 <div
                     class="aspect-square leading-tighter relative"
@@ -279,19 +270,18 @@
 
 <script>
 import axios from 'axios'
-import Victor from 'victor'
 import { DateTime, Info } from 'luxon'
 import InfoComponent from '../components/InfoComponent.vue'
+import PathComponent from '../components/PathComponent.vue'
 
 export default {
-    components: { InfoComponent },
+    components: { InfoComponent, PathComponent },
     data() {
         return {
+            dates: [],
             events: [],
             calendar: {},
             selected: null,
-            pointToDate: [],
-            points: [],
             since: null,
             till: null,
             now: DateTime.now()
@@ -334,15 +324,6 @@ export default {
         },
     },
     computed: {
-        pointsString() {
-            const path = this.points
-                .map(({ x, y }, i) => {
-                    return `0,0 ${x},${y}`
-                })
-                .join(' ')
-
-            return `M 0,0 S${path}`
-        },
         next() {
             return Object.entries(this.calendar)
                 .filter(([key, value]) => {
@@ -368,6 +349,7 @@ export default {
             for (const event of this.events) {
                 event._datetime = DateTime.fromISO(event.start)
                 const date = event._datetime.toISODate()
+                this.dates.push(event._datetime)
                 if (date in this.calendar) {
                     this.calendar[date].push(event)
                 }
@@ -377,108 +359,7 @@ export default {
                     event._datetime.diff(this.since, 'weeks').weeks
                 )
                 const y = weeksDiff * 100 + 50
-
-                this.pointToDate.push(event._datetime)
-                this.points.push(new Victor(x, y))
             }
-
-            this.updatePoints()
-        },
-        pointOnCircle(c1, c2) {
-            const v = c1.clone().subtract(c2).normalize().multiplyScalar(50)
-
-            return c1.clone().subtract(v)
-        },
-        updatePoints() {
-            const p1s = []
-            const p2s = []
-            for (let i = 0; i < this.points.length; i++) {
-                if (i > 0) {
-                    p1s.push(
-                        this.pointOnCircle(this.points[i], this.points[i - 1])
-                    )
-                }
-                if (i < this.points.length - 1) {
-                    p2s.push(
-                        this.pointOnCircle(this.points[i], this.points[i + 1])
-                    )
-                }
-            }
-
-            const q1s = []
-            const q2s = []
-            const signs = []
-            let F = 100
-            for (let i = 0; i < this.points.length; i++) {
-                signs.push(
-                    Math.sign(
-                        i > 0 && i < this.points.length - 1
-                            ? p2s[i]
-                                  .clone()
-                                  .subtract(p1s[i - 1])
-                                  .cross(
-                                      p2s[i].clone().subtract(this.points[i])
-                                  )
-                            : 0
-                    )
-                )
-
-                if (i > 0) {
-                    const f =
-                        p1s[i - 1]
-                            .clone()
-                            .subtract(p2s[i - 1])
-                            .length() == 0
-                            ? 0
-                            : F
-                    const q1 = p1s[i - 1]
-                        .clone()
-                        .subtract(this.points[i])
-                        .rotate(-Math.PI / 2)
-                        .multiplyScalar(signs[i] >= 0 ? 1 : -1)
-                        .normalize()
-                        .multiplyScalar(f)
-                        .add(p1s[i - 1])
-                    q1s.push(q1)
-                }
-
-                if (i < this.points.length - 1) {
-                    const f =
-                        p1s[i].clone().subtract(p2s[i]).length() == 0 ? 0 : F
-                    const q2 = p2s[i]
-                        .clone()
-                        .subtract(this.points[i])
-                        .rotate(Math.PI / 2)
-                        .multiplyScalar(signs[i] >= 0 ? 1 : -1)
-                        .normalize()
-                        .multiplyScalar(f)
-                        .add(p2s[i])
-                    q2s.push(q2)
-                }
-            }
-
-            const points = []
-            for (let i = 0; i < this.points.length; i++) {
-                if (i > 0) {
-                }
-                if (i < this.points.length - 1) {
-                    points.push(`A 50 50 0 1 ${signs[i] < 0 ? 0 : 1}`, p2s[i])
-                    points.push('C', q2s[i], q1s[i], p1s[i])
-                }
-            }
-
-            const path = points
-                .map(v => {
-                    if (typeof v === 'string') {
-                        return v
-                    } else {
-                        return `${v.x},${v.y}`
-                    }
-                })
-                .join(' ')
-            this.$refs.svg
-                .querySelector('path')
-                .setAttribute('d', `M 0,0 ${path}`)
         },
         click(date) {
             this.selected = date
