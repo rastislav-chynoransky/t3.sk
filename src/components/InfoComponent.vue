@@ -96,27 +96,29 @@
                 </div>
 
                 <form
-                    action="https://t3.us14.list-manage.com/subscribe"
+                    @submit="subscribe"
+                    :action="`${apiUrl}/subscription`"
                     method="POST"
                 >
                     <div class="flex max-w-lg mt-3 w-full">
                         <input
                             type="email"
                             name="email"
-                            class="bg-transparent focus:bg-[white] block border-2 border-r-0 border-black grow focus:outline-none rounded-none placeholder:text-black px-3 py-1.5"
+                            :class="[formError ? 'border-red' : 'border-black']"
+                            class="bg-transparent focus:bg-[white] block border-2 border-r-0 grow focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5"
                             placeholder="e-mail"
                         />
                         <button
-                            class="bg-black block px-3 text-sm text-white active:text-highlight [font-variation-settings:'wght'_600]"
+                            :class="[
+                                formError
+                                    ? 'bg-red text-[white]'
+                                    : 'bg-black text-white',
+                            ]"
+                            class="block px-3 text-sm active:text-highlight [font-variation-settings:'wght'_600]"
+                            type="submit"
                         >
                             Odoberať
                         </button>
-                        <input
-                            type="hidden"
-                            name="u"
-                            value="7c01b30bd3bfc1c97c5551123"
-                        />
-                        <input type="hidden" name="id" value="a21376b9fb" />
                     </div>
                 </form>
 
@@ -166,3 +168,33 @@
         </div>
     </div>
 </template>
+
+<script>
+import axios from 'axios'
+
+export default {
+    data() {
+        return {
+            apiUrl: import.meta.env.VITE_API_URL,
+            formError: false,
+        }
+    },
+    methods: {
+        subscribe(e) {
+            e.preventDefault()
+            const data = new FormData(e.target)
+            axios
+                .post(e.target.action, data)
+                .then(() => {
+                    this.formError = false
+                    e.target.reset()
+                    e.target.querySelector('[name=email]').placeholder =
+                        'Ste prihlásený na odber. Ďakujeme za váš záujem!'
+                })
+                .catch(() => {
+                    this.formError = true
+                })
+        },
+    },
+}
+</script>
