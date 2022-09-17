@@ -11,8 +11,7 @@
             class="border-black border-b-3 lg:border-x-3 top-0 grid grid-cols-calendar leading-8 ml-8 sticky text-center text-base w-fit lg:w-auto z-20 uppercase"
         >
             <div
-                style="backdrop-filter: blur(5px)"
-                class="bg-white/50 border-transparent border-l-3 h-8"
+                class="backdrop-blur-sm bg-white/50 border-transparent border-l-3 h-8"
                 v-for="weekday in weekdays"
                 :key="weekday"
             >
@@ -21,8 +20,7 @@
         </div>
 
         <div
-            style="backdrop-filter: blur(5px)"
-            class="box-content fixed bg-white/50 border-black border-r-3 bottom-0 left-0 top-8 w-8 z-20"
+            class="backdrop-blur-sm box-content fixed bg-white/50 border-black border-r-3 bottom-0 left-0 top-8 w-8 z-20"
         ></div>
 
         <div class="flex w-fit">
