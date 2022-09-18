@@ -4,6 +4,7 @@ import router from './router'
 import './index.css'
 import { Settings } from 'luxon'
 import sticky from './sticky'
+import linkify from 'vue-linkify'
 
 const app = createApp(App)
 
@@ -13,5 +14,6 @@ Settings.defaultLocale = locale
 app.use(router)
 
 app.directive('sticky', sticky)
+app.directive('linkified', linkify)
 
 app.mount('#app')

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="font-gates text-base tracking-normal bg-white fixed inset-0 overflow-y-auto overscroll-none px-4 lg:px-8 py-8 lg:py-16 z-40"
+        class="font-gates text-base tracking-normal bg-white fixed inset-0 overflow-y-auto overscroll-none px-4 lg:px-8 py-8 lg:py-16 z-50"
     >
         <div class="flex flex-wrap">
             <div class="lg:w-1/2 px-4 lg:px-8">
@@ -8,25 +8,27 @@
                     <h2 class="font-media text-base uppercase">O nás</h2>
 
                     <p class="mt-3">
-                        T3 &ndash; kultúrny prostriedok je nezávislé
-                        multižánrové kultúrne centrum sídliace v električkovom
-                        vozni na Tyršovom nábreží. Zameriava sa na prinášanie
-                        nových a inovatívnych umeleckých tendencií a postupov,
-                        popularizáciu experimentálnej a ozvláštňujúcej tvorby,
-                        prezentáciu mladých tvorcov, vytváranie priestoru na iné
-                        vnímanie umeleckej tvorby a otváranie možností
-                        percepcie; reflektovanie aktuálnych spoločenských
-                        problémov; sprístupňovanie okrajových a náročnejších
-                        žánrov bežnému divákovi a budovanie aktívnej a
-                        angažovanej kultúrnej komunity.
+                        T3&nbsp;&ndash;&nbsp;kultúrny prostriedok
+                        je&nbsp;nezávislé multižánrové kultúrne centrum sídliace
+                        v&nbsp;električkovom vozni na&nbsp;Tyršovom nábreží.
+                        Zameriava sa na&nbsp;prinášanie nových
+                        a&nbsp;inovatívnych umeleckých tendencií
+                        a&nbsp;postupov, popularizáciu experimentálnej
+                        a&nbsp;ozvláštňujúcej tvorby, prezentáciu mladých
+                        tvorcov, vytváranie priestoru na&nbsp;iné vnímanie
+                        umeleckej tvorby a&nbsp;otváranie možností percepcie;
+                        reflektovanie aktuálnych spoločenských problémov;
+                        sprístupňovanie okrajových a&nbsp;náročnejších žánrov
+                        bežnému divákovi a&nbsp;budovanie aktívnej
+                        a&nbsp;angažovanej kultúrnej komunity.
                     </p>
                     <!-- <p class="mt-3">T3 vám prináša koncerty, autorské čítania, výstavy, performancie, premietania, divadlá či žánre prestupujúce predstavenia.</p> -->
                     <p class="mt-3">
-                        Sme otvorení vašim nápadom či žiadostiam o prenájom. V
-                        prípade záujmu o využitie nášho priestoru nás
-                        kontaktujte. Ak váš projekt či podujatie zapadá do našej
-                        dramaturgie, vieme sa dohodnúť na veľmi priaznivých
-                        podmienkach.
+                        Sme otvorení vašim nápadom či&nbsp;žiadostiam
+                        o&nbsp;prenájom. V&nbsp;prípade záujmu o&nbsp;využitie
+                        nášho priestoru nás kontaktujte. Ak váš projekt či
+                        podujatie zapadá do&nbsp;našej dramaturgie, vieme sa
+                        dohodnúť na&nbsp;veľmi priaznivých podmienkach.
                     </p>
                 </div>
 
@@ -90,8 +92,9 @@
 
                 <div class="max-w-lg">
                     <p class="mt-3">
-                        Raz mesačne vám zašleme súhrn nadchádzajúcich podujatí a
-                        občasne vás budeme informovať o dôležitých novinkách.
+                        Raz mesačne vám zašleme súhrn nadchádzajúcich podujatí
+                        a&nbsp;občasne&nbsp;vás budeme informovať
+                        o&nbsp;dôležitých novinkách.
                     </p>
                 </div>
 
@@ -166,6 +169,13 @@
                 </div>
             </div>
         </div>
+
+        <router-link
+            :to="{ name: 'home' }"
+            @click="menuOpen = !menuOpen"
+            class="fixed bottom-0 font-media mx-2 my-2 px-2 right-0 text-4xl lg:text-5xl uppercase active:text-highlight"
+            >Program</router-link
+        >
     </div>
 </template>
 

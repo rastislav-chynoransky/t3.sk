@@ -3,7 +3,7 @@ module.exports = {
     theme: {
         extend: {
             borderWidth: {
-                3: '1px',
+                DEFAULT: 'var(--border-width)',
             },
             colors: {
                 black: '#000',

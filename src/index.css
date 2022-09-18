@@ -30,4 +30,8 @@
     td {
         @apply p-0;
     }
+
+    :root {
+        --border-width: 1px;
+    }
 }

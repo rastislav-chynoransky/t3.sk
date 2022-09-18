@@ -10,9 +10,11 @@
   "dependencies": {
     "axios": "^0.26.1",
     "luxon": "^2.3.2",
+    "qs": "^6.11.0",
     "sticky-sidebar": "^3.3.1",
     "victor": "^1.1.0",
     "vue": "^3.2.33",
+    "vue-linkify": "^1.0.1",
     "vue-router": "^4.0.14"
   },
   "devDependencies": {

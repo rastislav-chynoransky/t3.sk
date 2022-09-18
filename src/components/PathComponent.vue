@@ -2,11 +2,11 @@
     <svg
         v-if="this.dates.length"
         class="absolute left-0 right-0 z-10"
-        viewBox="0 0 700 1400"
+        :viewBox="`0 0 700 ${height}`"
         xmlns="http://www.w3.org/2000/svg"
     >
         <path
-            :d="`M 0,0 ${pointsString}`"
+            :d="`M 0,0 ${path}`"
             class="fill-transparent stroke-highlight stroke-[9px] [stroke-linejoin:bevel]"
         ></path>
     </svg>
@@ -19,24 +19,19 @@ import { DateTime } from 'luxon'
 export default {
     props: {
         dates: Array,
+        since: DateTime,
+        till: DateTime,
     },
     data() {
         return {
             points: [],
-            since: null,
-            now: DateTime.now()
-                .minus({ months: 0, days: 0 })
-                .plus({ months: 0, days: 0 }),
         }
     },
-    created() {
-        this.since = this.now
-            .minus({ months: 0 })
-            .startOf('month')
-            .startOf('week')
-    },
     computed: {
-        pointsString() {
+        height() {
+            return this.till.diff(this.since, 'weeks').weeks * 100
+        },
+        path() {
             const centers = this.dates.map(date => {
                 const x = (date.weekday - 1) * 100 + 50
                 const weeksDiff = Math.floor(
@@ -126,7 +121,7 @@ export default {
                 })
                 .join(' ')
 
-            return `M 0,0 ${path}`
+            return path
         },
     },
     methods: {
