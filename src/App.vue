@@ -11,7 +11,7 @@
             class="border-black border-b lg:border-x top-0 grid grid-cols-calendar leading-8 ml-8 sticky text-center text-base w-fit lg:w-auto z-20 uppercase"
         >
             <div
-                class="backdrop-blur-sm bg-white/50 border-transparent border-l h-8"
+                class="backdrop-blur-sm bg-white/90 [@supports(backdrop-filter:blur(0))]:bg-white/50 border-transparent border-l h-8"
                 v-for="weekday in weekdays"
                 :key="weekday"
             >
@@ -20,14 +20,14 @@
         </div>
 
         <div
-            class="backdrop-blur-sm box-content fixed bg-white/50 border-black border-r bottom-0 left-0 top-8 w-8 z-20"
+            class="backdrop-blur-sm box-content fixed bg-white/90 [@supports(backdrop-filter:blur(0))]:bg-white/50 border-black border-r bottom-0 left-0 top-8 w-8 z-20"
         ></div>
 
         <div class="flex w-fit lg:w-full">
             <div class="sticky left-0 z-20 w-8 shrink-0">
                 <div
                     class="text-base leading-8 uppercase z-20"
-                    :style="`height: max(8rem * ${month.length}, (100vw - 2rem - var(--border-width))/7 * ${month.length});`"
+                    :style="`height: max(var(--sm-col-width) * ${month.length}, (100vw - 2rem - var(--border-width))/7 * ${month.length});`"
                     v-for="(month, i) in months"
                     :key="`month_${i}`"
                 >
@@ -51,7 +51,7 @@
                     v-for="(events, key) in sortedCalendar"
                     :key="key"
                 >
-                    <div class="relative -top-8" :ref="key"></div>
+                    <div class="relative -left-8 -top-8" :ref="key"></div>
                     <div class="h-full border-b border-r border-highlight">
                         <router-link
                             class="block group h-full"
@@ -60,7 +60,7 @@
                         >
                             <div
                                 :class="[key == selected ? 'bg-highlight' : '']"
-                                class="absolute flex h-full justify-center rounded-[50%] transition-[border-radius] group-hover:bg-highlight w-full z-20"
+                                class="absolute flex h-full justify-center rounded-[50%] transition-[border-radius] group-active:bg-highlight w-full z-20"
                             >
                                 <div
                                     :class="[
@@ -68,9 +68,9 @@
                                             ? 'text-red'
                                             : key == selected
                                             ? 'text-white'
-                                            : 'text-highlight group-hover:text-white',
+                                            : 'text-highlight group-active:text-white',
                                     ]"
-                                    class="font-t3 self-center text-[clamp(5rem,8.5vw,8.5vw)]"
+                                    class="font-t3 self-center text-day"
                                 >
                                     {{ events[0]._datetime.day }}
                                 </div>
@@ -93,7 +93,7 @@
                                 class="absolute flex h-full justify-center w-full"
                             >
                                 <div
-                                    class="font-t3 self-center text-[clamp(5rem,9vw,9vw)] text-red"
+                                    class="font-t3 self-center text-day text-red"
                                 >
                                     {{ now.day }}
                                 </div>
@@ -160,7 +160,7 @@ export default {
                 return
             }
 
-            const delta = window.innerHeight / 2
+            const delta = window.innerHeight / 3
 
             if (window.scrollY < delta) {
                 this.loadPrevious()
@@ -181,22 +181,13 @@ export default {
                 return Promise.resolve()
             }
 
-            // since = DateTime.max(
-            //     since,
-            //     this.till ? this.till.plus({ days: 1 }) : since
-            // )
-            // till = DateTime.min(
-            //     till,
-            //     this.since ? this.since.minus({ days: 1 }) : till
-            // )
-
             const query = qs.stringify({
                 populate: '*',
                 sort: ['start'],
                 filters: {
                     start: {
                         $gte: since.toISODate(),
-                        $lte: till.toISODate(),
+                        $lt: till.plus({ days: 1 }).toISODate(),
                     },
                 },
             })
@@ -232,10 +223,6 @@ export default {
                         const key = datetime.toISODate()
                         this.calendar[key].push(event)
                     }
-
-                    this.$nextTick(() => {
-                        window.scroll()
-                    })
                 })
         },
         loadPrevious() {
@@ -377,7 +364,8 @@ export default {
             })
         },
         prev() {
-            return this.dates.findLast(date => {
+            // return this.dates.findLast(date => {
+            return [...this.dates].reverse().find(date => {
                 return date.startOf('day') < this.date
             })
         },
