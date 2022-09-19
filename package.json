@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "imagesloaded": "^5.0.0",
     "luxon": "^2.3.2",
     "qs": "^6.11.0",
     "sticky-sidebar": "^3.3.1",

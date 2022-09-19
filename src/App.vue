@@ -48,7 +48,7 @@
 
                 <div
                     class="aspect-square leading-tighter relative"
-                    v-for="(events, key) in calendar"
+                    v-for="(events, key) in sortedCalendar"
                     :key="key"
                 >
                     <div class="relative -top-8" :ref="key"></div>
@@ -79,15 +79,6 @@
                             <div
                                 class="flex flex-col h-full justify-end overflow-hidden p-2 relative z-30"
                             >
-                                <!-- <div
-                                    v-if="events?.[0].attributes.type"
-                                    class="font-gates text-xxs md:text-xs tracking-normal leading-snug mb-0.5 uppercase [font-variation-settings:'wght'_600]"
-                                >
-                                    <span
-                                        class="bg-black pb-[.075em] pt-[.25em] px-[.5em] tracking-normal rounded-full text-white"
-                                        >{{ events?.[0].attributes.type }}</span
-                                    >
-                                </div> -->
                                 <EventTypeComponent
                                     :event="events?.[0]"
                                     class="text-white"
@@ -127,7 +118,6 @@
         :now="now"
         @close="close"
         @open="open"
-        @navigate="navigate"
     />
 </template>
 
@@ -144,13 +134,11 @@ export default {
         return {
             now: DateTime.now(),
             date: null,
-            dates: [],
-            events: [],
             calendar: {},
-            selected: null,
             since: null,
             till: null,
             weekdays: Info.weekdays(),
+            loading: false,
         }
     },
     mounted() {
@@ -158,13 +146,231 @@ export default {
             history.scrollRestoration = 'manual'
         }
 
-        this.date = this.now
-        // todo fix double loading on detail
-        this.navigate(this.date).then(() => {
-            this.scrollTo(this.date)
+        this.$router.isReady().then(() => {
+            if (!this.$route.matched.some(({ name }) => name === 'event')) {
+                this.navigate(this.now)
+            }
         })
+
+        window.addEventListener('scroll', this.scroll)
+    },
+    methods: {
+        scroll() {
+            if (this.loading) {
+                return
+            }
+
+            const delta = window.innerHeight / 2
+
+            if (window.scrollY < delta) {
+                this.loadPrevious()
+            } else if (
+                window.scrollY + window.innerHeight >
+                document.body.scrollHeight - delta
+            ) {
+                this.loadNext()
+            }
+        },
+        load(since, till, beforeCallback = null) {
+            if (
+                since >= this.since &&
+                till <= this.till &&
+                this.since !== null &&
+                this.till !== null
+            ) {
+                return Promise.resolve()
+            }
+
+            // since = DateTime.max(
+            //     since,
+            //     this.till ? this.till.plus({ days: 1 }) : since
+            // )
+            // till = DateTime.min(
+            //     till,
+            //     this.since ? this.since.minus({ days: 1 }) : till
+            // )
+
+            const query = qs.stringify({
+                populate: '*',
+                sort: ['start'],
+                filters: {
+                    start: {
+                        $gte: since.toISODate(),
+                        $lte: till.toISODate(),
+                    },
+                },
+            })
+            const url = `${import.meta.env.VITE_API_URL}/events?${query}`
+            return axios
+                .get(url)
+                .then(response => {
+                    if (beforeCallback) {
+                        beforeCallback()
+                    }
+                    return response
+                })
+                .then(({ data }) => {
+                    for (let i = since; i <= till; i = i.plus({ days: 1 })) {
+                        if (!this.calendar[i.toISODate()]) {
+                            this.calendar[i.toISODate()] = []
+                        }
+                    }
+
+                    if (since < this.since || this.since === null) {
+                        this.since = since
+                    }
+
+                    if (till > this.till || this.till === null) {
+                        this.till = till
+                    }
+
+                    for (const event of data.data) {
+                        const datetime = DateTime.fromISO(
+                            event.attributes.start
+                        )
+                        event._datetime = datetime
+                        const key = datetime.toISODate()
+                        this.calendar[key].push(event)
+                    }
+
+                    this.$nextTick(() => {
+                        window.scroll()
+                    })
+                })
+        },
+        loadPrevious() {
+            this.loading = true
+            const since = this.since
+                .endOf('week')
+                .minus({ months: 1 })
+                .startOf('month')
+                .startOf('week')
+            const till = this.since.minus({ days: 1 })
+
+            let scrollTop, documentHeight
+            return this.load(since, till, () => {
+                scrollTop = window.scrollY
+                documentHeight = document.body.scrollHeight
+            })
+                .then(() => {
+                    if (scrollTop && documentHeight) {
+                        this.$nextTick(() => {
+                            document.documentElement.scrollTop =
+                                scrollTop +
+                                document.body.scrollHeight -
+                                documentHeight
+                        })
+                    }
+                })
+                .finally(() => {
+                    this.loading = false
+                })
+        },
+        loadNext() {
+            this.loading = true
+            const since = this.till.plus({ days: 1 })
+            const till = this.till
+                .startOf('week')
+                .plus({ month: 1 })
+                .endOf('month')
+                .endOf('week')
+
+            return this.load(since, till).finally(() => {
+                this.loading = false
+            })
+        },
+        isToday(date) {
+            return date === this.now.toISODate()
+        },
+        home() {
+            this.$router.push({
+                name: 'home',
+            })
+
+            const key = this.now.toISODate()
+            if (this.calendar[key]) {
+                this.scrollTo(this.now, 'smooth')
+            } else {
+                this.navigate(this.now)
+            }
+        },
+        scrollTo(date, behavior) {
+            this.$refs[date.toISODate()]?.[0]?.scrollIntoView({
+                behavior,
+            })
+        },
+        navigate(date) {
+            const since = date
+                .minus({ months: 1 })
+                .startOf('month')
+                .startOf('week')
+            const till = date.plus({ months: 1 }).endOf('month').endOf('week')
+            const behavior = this.calendar[date.toISODate()] ? 'smooth' : 'auto'
+
+            const restorePosition = since < this.since
+
+            let scrollTop, documentHeight
+            return this.load(since, till, () => {
+                scrollTop = window.scrollY
+                documentHeight = document.body.scrollHeight
+
+                if (
+                    till < this.since?.minus({ days: 1 }) ||
+                    since > this.till?.plus({ days: 1 })
+                ) {
+                    this.calendar = {}
+                    this.since = null
+                    this.till = null
+                }
+            }).then(() => {
+                if (scrollTop && documentHeight && restorePosition) {
+                    this.$nextTick(() => {
+                        document.documentElement.scrollTop =
+                            scrollTop +
+                            document.body.scrollHeight -
+                            documentHeight
+                    })
+                }
+                this.$nextTick(() => {
+                    this.scrollTo(date, behavior)
+                })
+            })
+        },
+        open(date) {
+            this.date = date
+            this.navigate(date)
+        },
+        close() {
+            this.date = null
+            this.$router.push({
+                name: 'home',
+            })
+        },
+        formatTitle(event) {
+            return event.attributes.title
+                ? event.attributes.title
+                : event.attributes.facebook_title
+        },
     },
     computed: {
+        selected() {
+            return this.date?.toISODate()
+        },
+        dates() {
+            return Object.keys(this.calendar)
+                .filter(date => this.calendar[date].length)
+                .map(date => DateTime.fromISO(date))
+                .sort()
+        },
+        sortedCalendar() {
+            return Object.keys(this.calendar)
+                .sort()
+                .reduce((accumulator, key) => {
+                    accumulator[key] = this.calendar[key]
+
+                    return accumulator
+                }, {})
+        },
         next() {
             return this.dates.find(date => {
                 return date.startOf('day') > this.date
@@ -176,12 +382,11 @@ export default {
             })
         },
         months() {
-            const months = []
-
             if (!this.since || !this.till) {
-                return months
+                return []
             }
 
+            const months = []
             for (
                 let i = this.since.endOf('week').startOf('month');
                 i <= this.till.startOf('week').endOf('month');
@@ -196,94 +401,6 @@ export default {
                 })
             }
             return months
-        },
-    },
-    methods: {
-        isToday(date) {
-            return date === this.now.toISODate()
-        },
-        home() {
-            this.$router.push({
-                name: 'home',
-            })
-
-            const key = this.now.toISODate()
-            const el = this.$refs[key]?.[0]
-            if (el) {
-                this.scrollTo(this.now, 'smooth')
-            } else {
-                this.navigate(this.now).then(() => {
-                    this.$nextTick(() => {
-                        this.scrollTo(this.now)
-                    })
-                })
-            }
-        },
-        scrollTo(date, behavior = 'auto') {
-            this.$refs[date.toISODate()]?.[0]?.scrollIntoView({ behavior })
-        },
-        navigate(date) {
-            this.date = date
-            const since = date
-                // .minus({ months: 62 })
-                .startOf('month')
-                .startOf('week')
-            const till = date.plus({ months: 2 }).endOf('month').endOf('week')
-
-            if (this.since > since || this.till < till) {
-                this.calendar = {}
-                for (let i = since; i <= till; i = i.plus({ days: 1 })) {
-                    this.calendar[i.toISODate()] = []
-                }
-            }
-
-            this.since = since
-            this.till = till
-
-            const query = qs.stringify({
-                populate: '*',
-                sort: ['start'],
-                filters: {
-                    start: {
-                        $gte: this.since.toISODate(),
-                        $lte: this.till.toISODate(),
-                    },
-                },
-            })
-
-            const url = `${import.meta.env.VITE_API_URL}/events?${query}`
-
-            return axios.get(url).then(({ data }) => {
-                this.events = []
-                this.dates = []
-                this.events.push(...data.data)
-                for (const event of this.events) {
-                    const datetime = DateTime.fromISO(event.attributes.start)
-                    event._datetime = datetime
-                    this.dates.push(datetime)
-                    const key = datetime.toISODate()
-                    if (key in this.calendar) {
-                        this.calendar[key].push(event)
-                    }
-                }
-            })
-        },
-        open(date) {
-            this.date = date
-            this.selected = date.toISODate()
-            this.scrollTo(date, 'smooth')
-        },
-        close() {
-            this.date = null
-            this.selected = null
-            this.$router.push({
-                name: 'home',
-            })
-        },
-        formatTitle(event) {
-            return event.attributes.title
-                ? event.attributes.title
-                : event.attributes.facebook_title
         },
     },
 }

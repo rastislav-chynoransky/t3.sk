@@ -32,13 +32,11 @@
                     </p>
                 </div>
 
-                <div class="max-w-full">
-                    <img
-                        class="w-[32rem] my-[3.25rem]"
-                        src="/src/assets/tyrsak.jpeg"
-                        alt="T3 na Tyršovom nábreží"
-                    />
-                </div>
+                <img
+                    class="max-w-lg my-[3.25rem]"
+                    src="/src/assets/tyrsak.jpeg"
+                    alt="T3 na Tyršovom nábreží"
+                />
             </div>
             <div class="mb-[3.25rem] lg:w-1/2 px-4 lg:px-8">
                 <h2 class="font-media text-base uppercase">Kontakt</h2>
@@ -79,7 +77,7 @@
                     </tr>
                 </table>
                 <iframe
-                    class="grayscale h-64 max-w-lg mt-4 w-full"
+                    class="grayscale h-[19rem] max-w-lg mt-4 w-full"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2662.676205189234!2d17.114085815648956!3d48.13576737922336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c894ba8a682f7%3A0x5ef920aa01f0c604!2sT3%20-%20kult%C3%BArny%20prostriedok!5e0!3m2!1sen!2ssk!4v1655149273176!5m2!1sen!2ssk"
                     allowfullscreen
                     loading="lazy"

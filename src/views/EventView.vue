@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="mx-5 lg:mx-10 my-10 pb-14 relative">
+        <div class="mx-5 lg:mx-10 mt-10 mb-16 relative">
             <EventTypeComponent :event="event" class="text-[white]" />
             <h2 class="leading-tighter text-2xl whitespace-pre-line">
                 {{ formatTitle(event) }}
@@ -63,6 +63,13 @@
                 </div>
             </div>
 
+            <img
+                class="grayscale mb-6 mt-5 w-full"
+                v-if="event.attributes.image"
+                v-show="loaded"
+                :src="event.attributes.image"
+            />
+
             <div
                 class="font-gates my-4 tracking-normal whitespace-pre-wrap"
                 v-html="formatDescription(event)"
@@ -70,44 +77,12 @@
                     className: 'break-words underline hover:no-underline',
                 }"
             ></div>
-
-            <!-- <img class="mb-6 mt-5" v-if="event?.attributes.image" :src="`./src/assets/${event.attributes.image}`"> -->
-            <!-- <img class="mb-6 mt-5" src="/src/assets/pelada.png"> -->
-
-            <template v-if="event.attributes.artists.data.length">
-                <div
-                    class="mt-10"
-                    v-for="artist in event.attributes.artists.data"
-                    :key="artist"
-                >
-                    <h3 class="my-4 text-2xl">
-                        {{ artist.attributes.name }}
-                    </h3>
-                    <p class="font-gates my-4 tracking-normal">
-                        {{ artist.attributes.description }}
-                    </p>
-                    <iframe
-                        v-if="'bandcamp' in artist.attributes"
-                        style="border: 0; width: 100%; height: 42px"
-                        :src="`https://bandcamp.com/EmbeddedPlayer/album=${artist.attributes.bandcamp}/size=small/bgcol=ffffff/linkcol=333333/transparent=true/`"
-                        seamless
-                    ></iframe>
-                    <iframe
-                        v-if="'soundcloud' in artist.attributes"
-                        class="w-full"
-                        height="166"
-                        scrolling="no"
-                        frameborder="no"
-                        allow="autoplay"
-                        :src="`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${artist.attributes.soundcloud}&amp;color=%23000000&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;show_teaser=false`"
-                    ></iframe>
-                </div>
-            </template>
         </div>
     </div>
 </template>
 
 <script>
+import imagesLoaded from 'imagesLoaded'
 import { DateTime } from 'luxon'
 import EventTypeComponent from '../components/EventTypeComponent.vue'
 
@@ -118,13 +93,41 @@ export default {
         prev: Object,
         next: Object,
     },
-    emits: ['close', 'open', 'navigate'],
-    created() {
+    data() {
+        return {
+            loaded: true,
+        }
+    },
+    emits: ['close', 'open'],
+    mounted() {
         const date = DateTime.fromISO(this.$route.params.date)
-        this.$emit('navigate', date)
         this.$emit('open', date)
+
+        window.addEventListener('keydown', this.keydown)
+    },
+    unmounted() {
+        window.removeEventListener('keydown', this.keydown)
     },
     methods: {
+        keydown(e) {
+            if (e.keyCode === 27) {
+                this.$emit('close')
+            } else if (e.keyCode === 37 && this.prev) {
+                window.setTimeout(() => {
+                    this.$router.push({
+                        name: 'event',
+                        params: { date: this.prev.toISODate() },
+                    })
+                })
+            } else if (e.keyCode === 39 && this.next) {
+                window.setTimeout(() => {
+                    this.$router.push({
+                        name: 'event',
+                        params: { date: this.next.toISODate() },
+                    })
+                })
+            }
+        },
         formatTime(datetime) {
             return datetime.toLocaleString(DateTime.TIME_SIMPLE)
         },
@@ -143,14 +146,19 @@ export default {
         },
     },
     watch: {
-        $route(to, from) {
+        $route(to) {
+            this.loaded = false
             if (to.params.date) {
                 const date = DateTime.fromISO(to.params.date)
-                this.$emit('navigate', date)
                 this.$emit('open', date)
                 if (this.$refs.container) {
                     this.$refs.container.scrollTop = 0
                 }
+
+                const loader = imagesLoaded(this.$refs.container)
+                loader.on('done', () => {
+                    this.loaded = true
+                })
             }
         },
     },
