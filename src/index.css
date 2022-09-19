@@ -33,5 +33,6 @@
 
     :root {
         --border-width: 1px;
+        --sm-col-width: 10rem;
     }
 }

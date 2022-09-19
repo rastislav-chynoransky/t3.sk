@@ -17,7 +17,7 @@ module.exports = {
                 gates: '"BS Gates"',
             },
             gridTemplateColumns: {
-                calendar: 'repeat(7, minmax(8rem, 1fr))',
+                calendar: 'repeat(7, minmax(var(--sm-col-width), 1fr))',
             },
             lineHeight: {
                 tighter: '1.05',
@@ -28,9 +28,10 @@ module.exports = {
             fontSize: {
                 xxs: ['.5rem'],
                 base: ['1rem', { letterSpacing: '.08em' }],
-                '2xl': ['1.5rem', { letterSpacing: '.05em' }],
+                '2xl': ['1.35rem', { letterSpacing: '.07em' }],
                 '4xl': ['2rem', { letterSpacing: '.03em' }],
                 '5xl': ['3rem', { letterSpacing: '.03em' }],
+                day: 'clamp(6rem, 9vw, 9vw)',
             },
         },
     },
