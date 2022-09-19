@@ -5,8 +5,16 @@ import './index.css'
 import { Settings } from 'luxon'
 import sticky from './sticky'
 import linkify from 'vue-linkify'
+import * as Sentry from '@sentry/vue'
 
 const app = createApp(App)
+
+if (import.meta.env.VITE_SENTRY_DSN) {
+    Sentry.init({
+        app,
+        dsn: import.meta.env.VITE_SENTRY_DSN,
+    })
+}
 
 const locale = 'sk'
 Settings.defaultLocale = locale
