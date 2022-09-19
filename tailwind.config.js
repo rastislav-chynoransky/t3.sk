@@ -1,5 +1,5 @@
 module.exports = {
-    content: ['./src/**/*.vue'],
+    content: ['./index.html', './src/**/*.vue'],
     theme: {
         extend: {
             borderWidth: {
