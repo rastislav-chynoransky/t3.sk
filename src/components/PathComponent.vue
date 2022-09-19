@@ -6,9 +6,24 @@
         xmlns="http://www.w3.org/2000/svg"
     >
         <path
-            :d="`M 0,0 ${path}`"
+            :d="path"
             class="fill-transparent stroke-highlight stroke-[9px] [stroke-linejoin:bevel]"
         ></path>
+
+        <circle
+            class="fill-transparent stroke-highlight stroke-[9px] [stroke-linejoin:bevel]"
+            v-if="centers.length"
+            :cx="centers[0].x"
+            :cy="centers[0].y"
+            r="50"
+        />
+        <circle
+            class="fill-transparent stroke-highlight stroke-[9px] [stroke-linejoin:bevel]"
+            v-if="centers.length"
+            :cx="centers[centers.length - 1].x"
+            :cy="centers[centers.length - 1].y"
+            r="50"
+        />
     </svg>
 </template>
 
@@ -22,17 +37,9 @@ export default {
         since: DateTime,
         till: DateTime,
     },
-    data() {
-        return {
-            points: [],
-        }
-    },
     computed: {
-        height() {
-            return this.till.diff(this.since, 'weeks').weeks * 100
-        },
-        path() {
-            const centers = this.dates.map(date => {
+        centers() {
+            return this.dates.map(date => {
                 const x = (date.weekday - 1) * 100 + 50
                 const weeksDiff = Math.floor(
                     date.diff(this.since, 'weeks').weeks
@@ -41,15 +48,23 @@ export default {
 
                 return new Victor(x, y)
             })
-
+        },
+        height() {
+            return this.till.diff(this.since, 'weeks').weeks * 100
+        },
+        path() {
             const p1s = []
             const p2s = []
-            for (let i = 0; i < centers.length; i++) {
+            for (let i = 0; i < this.centers.length; i++) {
                 if (i > 0) {
-                    p1s.push(this.pointOnCircle(centers[i], centers[i - 1]))
+                    p1s.push(
+                        this.pointOnCircle(this.centers[i], this.centers[i - 1])
+                    )
                 }
-                if (i < centers.length - 1) {
-                    p2s.push(this.pointOnCircle(centers[i], centers[i + 1]))
+                if (i < this.centers.length - 1) {
+                    p2s.push(
+                        this.pointOnCircle(this.centers[i], this.centers[i + 1])
+                    )
                 }
             }
 
@@ -57,14 +72,16 @@ export default {
             const q2s = []
             const signs = []
             let F = 100
-            for (let i = 0; i < centers.length; i++) {
+            for (let i = 0; i < this.centers.length; i++) {
                 signs.push(
                     Math.sign(
-                        i > 0 && i < centers.length - 1
+                        i > 0 && i < this.centers.length - 1
                             ? p2s[i]
                                   .clone()
                                   .subtract(p1s[i - 1])
-                                  .cross(p2s[i].clone().subtract(centers[i]))
+                                  .cross(
+                                      p2s[i].clone().subtract(this.centers[i])
+                                  )
                             : 0
                     )
                 )
@@ -79,7 +96,7 @@ export default {
                             : F
                     const q1 = p1s[i - 1]
                         .clone()
-                        .subtract(centers[i])
+                        .subtract(this.centers[i])
                         .rotate(-Math.PI / 2)
                         .multiplyScalar(signs[i] >= 0 ? 1 : -1)
                         .normalize()
@@ -88,12 +105,12 @@ export default {
                     q1s.push(q1)
                 }
 
-                if (i < centers.length - 1) {
+                if (i < this.centers.length - 1) {
                     const f =
                         p1s[i].clone().subtract(p2s[i]).length() == 0 ? 0 : F
                     const q2 = p2s[i]
                         .clone()
-                        .subtract(centers[i])
+                        .subtract(this.centers[i])
                         .rotate(Math.PI / 2)
                         .multiplyScalar(signs[i] >= 0 ? 1 : -1)
                         .normalize()
@@ -104,8 +121,8 @@ export default {
             }
 
             const points = []
-            for (let i = 0; i < centers.length; i++) {
-                if (i < centers.length - 1) {
+            for (let i = 0; i < this.centers.length; i++) {
+                if (i < this.centers.length - 1) {
                     points.push(`A 50 50 0 1 ${signs[i] < 0 ? 0 : 1}`, p2s[i])
                     points.push('C', q2s[i], q1s[i], p1s[i])
                 }
