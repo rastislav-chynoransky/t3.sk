@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import imagesLoaded from 'imagesLoaded'
+import imagesLoaded from 'imagesloaded'
 import { DateTime } from 'luxon'
 import EventTypeComponent from '../components/EventTypeComponent.vue'
 
