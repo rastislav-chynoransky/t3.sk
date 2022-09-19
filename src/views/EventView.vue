@@ -2,7 +2,7 @@
     <div
         ref="container"
         v-if="event"
-        class="backdrop-blur-lg bg-[white]/70 border-black lg:border-l bottom-0 fixed font-media overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
+        class="backdrop-blur-lg bg-[white]/95 [@supports(backdrop-filter:blur(0))]:bg-[white]/70 border-black lg:border-l bottom-0 fixed font-media overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
     >
         <div
             class="border-black border-b bg-[white] grid grid-cols-3 px-5 lg:px-10 sticky top-0 w-full z-10"
