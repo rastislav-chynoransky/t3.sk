@@ -2,7 +2,7 @@
     <div
         ref="container"
         v-if="event"
-        class="backdrop-blur-lg bg-white/95 [@supports(backdrop-filter:blur(0))]:bg-white/70 border-black lg:border-l bottom-0 fixed font-media overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
+        class="backdrop-blur-lg bg-white/95 [@supports(backdrop-filter:blur(0))]:bg-white/70 border-black lg:border-l bottom-0 fixed overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
     >
         <div
             class="border-black border-b bg-white grid grid-cols-3 px-5 lg:px-10 sticky top-0 w-full z-10"
@@ -37,7 +37,7 @@
 
         <div class="mx-5 lg:mx-10 mt-10 mb-16 relative">
             <EventTypeComponent :event="event" class="text-white" />
-            <h2 class="text-2xl whitespace-pre-line">
+            <h2 class="font-media text-2xl whitespace-pre-line">
                 {{ formatTitle(event) }}
             </h2>
             <div class="flex font-media justify-between leading-tighter mt-3">

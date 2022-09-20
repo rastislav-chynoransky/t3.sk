@@ -42,5 +42,6 @@
 
     .font-gates {
         @apply leading-snug tracking-normal;
+        font-variation-settings: 'wght' 450;
     }
 }

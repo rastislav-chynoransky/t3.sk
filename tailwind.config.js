@@ -26,7 +26,7 @@ module.exports = {
             gates: '"BS Gates"',
         },
         fontSize: {
-            xxs: '.5rem',
+            xxs: '.6rem',
             xs: '.75rem',
             base: '1rem',
             lg: '1.125rem',
