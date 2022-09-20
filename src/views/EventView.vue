@@ -5,12 +5,12 @@
         class="backdrop-blur-lg bg-white/95 [@supports(backdrop-filter:blur(0))]:bg-white/70 border-black lg:border-l bottom-0 fixed overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
     >
         <div
-            class="border-black border-b bg-white grid grid-cols-3 px-5 lg:px-10 sticky top-0 w-full z-10"
+            class="border-black border-b bg-white font-media grid grid-cols-3 leading-8 px-5 lg:px-10 sticky top-0 w-full z-10"
         >
             <div>
                 <router-link
                     v-if="prev"
-                    class="active:text-highlight leading-8 scale-[2]"
+                    class="active:text-highlight"
                     :to="{ name: 'event', params: { date: prev.toISODate() } }"
                 >
                     &leftarrow;
@@ -18,7 +18,7 @@
             </div>
             <div class="text-center">
                 <button
-                    class="cursor-pointer font-media tracking-widest uppercase leading-8 active:text-highlight h-8"
+                    class="active:text-highlight tracking-widest uppercase"
                     @click="$emit('close')"
                 >
                     zavrieť
@@ -27,7 +27,7 @@
             <div class="text-right">
                 <router-link
                     v-if="next"
-                    class="text-right active:text-highlight leading-8 scale-[2]"
+                    class="active:text-highlight"
                     :to="{ name: 'event', params: { date: next.toISODate() } }"
                 >
                     &rightarrow;
