@@ -2,7 +2,7 @@
     <div
         ref="container"
         v-if="event"
-        class="backdrop-blur-lg bg-white/95 [@supports(backdrop-filter:blur(0))]:bg-white/70 border-black lg:border-l bottom-0 fixed overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
+        class="backdrop-blur-lg bg-white/95 [@supports(backdrop-filter:blur(0))]:bg-white/80 border-black lg:border-l bottom-0 fixed overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
     >
         <div
             class="border-black border-b bg-white font-media grid grid-cols-3 leading-8 lg:px-5 sticky top-0 w-full z-10"
@@ -16,9 +16,9 @@
                     &leftarrow;
                 </router-link>
             </div>
-            <div class="">
+            <div class="text-center">
                 <button
-                    class="block text-center active:text-highlight tracking-widest uppercase w-full"
+                    class="block active:text-highlight tracking-widest uppercase w-full"
                     @click="$emit('close')"
                 >
                     zavrieť
@@ -68,13 +68,23 @@
                 :src="event.attributes.image"
             />
 
-            <div
-                class="font-gates my-4 whitespace-pre-wrap"
-                v-html="formatDescription(event)"
-                v-linkified:options="{
-                    className: 'break-words underline hover:no-underline',
-                }"
-            ></div>
+            <div class="my-4">
+                <div
+                    class="whitespace-pre-wrap"
+                    v-html="formatDescription(event)"
+                    v-linkified:options="{
+                        className: 'break-words underline hover:no-underline',
+                    }"
+                ></div>
+                <br />Facebook event:<br />
+                <a
+                    class="underline hover:no-underline"
+                    :href="`https://www.facebook.com/events/${event.attributes.facebook_id}`"
+                    >https://www.facebook.com/events/{{
+                        event.attributes.facebook_id
+                    }}</a
+                >
+            </div>
         </div>
     </div>
 </template>
