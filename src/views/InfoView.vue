@@ -189,7 +189,18 @@ export default {
             formError: false,
         }
     },
+    mounted() {
+        window.addEventListener('keydown', this.keydown)
+    },
+    unmounted() {
+        window.removeEventListener('keydown', this.keydown)
+    },
     methods: {
+        keydown(e) {
+            if (e.keyCode === 27) {
+                this.$router.push({ name: 'home' })
+            }
+        },
         subscribe(e) {
             e.preventDefault()
             const data = new FormData(e.target)
