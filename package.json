@@ -1,35 +1,37 @@
 {
-  "name": "t3.sk",
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview --port 5050",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
-  },
-  "dependencies": {
-    "@sentry/vue": "^7.13.0",
-    "@vitejs/plugin-legacy": "^2.2.0",
-    "@vitejs/plugin-vue": "^3.1.0",
-    "axios": "^0.26.1",
-    "imagesloaded": "^5.0.0",
-    "luxon": "^2.3.2",
-    "qs": "^6.11.0",
-    "sticky-sidebar": "^3.3.1",
-    "victor": "^1.1.0",
-    "vue": "^3.2.33",
-    "vue-linkify": "^1.0.1",
-    "vue-router": "^4.0.14"
-  },
-  "devDependencies": {
-    "@rushstack/eslint-patch": "^1.1.0",
-    "@vue/eslint-config-prettier": "^7.0.0",
-    "autoprefixer": "^10.4.4",
-    "eslint": "^8.5.0",
-    "eslint-plugin-vue": "^8.2.0",
-    "postcss": "^8.4.12",
-    "prettier": "^2.5.1",
-    "tailwindcss": "3.1",
-    "vite": "^3.0.9"
-  }
+    "name": "t3.sk",
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview --port 5050",
+        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    },
+    "dependencies": {
+        "@rollup/plugin-inject": "^4.0.4",
+        "@sentry/vue": "^7.13.0",
+        "@vitejs/plugin-legacy": "^2.2.0",
+        "@vitejs/plugin-vue": "^3.1.0",
+        "axios": "^0.26.1",
+        "imagesloaded": "^5.0.0",
+        "jquery": "^3.6.1",
+        "luxon": "^2.3.2",
+        "qs": "^6.11.0",
+        "semantic-ui-sticky": "^2.3.1",
+        "victor": "^1.1.0",
+        "vue": "^3.2.33",
+        "vue-linkify": "^1.0.1",
+        "vue-router": "^4.0.14"
+    },
+    "devDependencies": {
+        "@rushstack/eslint-patch": "^1.1.0",
+        "@vue/eslint-config-prettier": "^7.0.0",
+        "autoprefixer": "^10.4.4",
+        "eslint": "^8.5.0",
+        "eslint-plugin-vue": "^8.2.0",
+        "postcss": "^8.4.12",
+        "prettier": "^2.5.1",
+        "tailwindcss": "3.1",
+        "vite": "^3.0.9"
+    }
 }

@@ -28,16 +28,19 @@
                 class="font-media leading-8 left-0 shrink-0 sticky tracking-widest uppercase w-8 z-20"
             >
                 <div
-                    class="z-20"
+                    class="box-content -mt-8 pb-8 z-20"
                     :style="`height: max(var(--sm-col-width) * ${month.length}, (100vw - 2rem - var(--border-width))/7 * ${month.length});`"
                     v-for="(month, i) in months"
                     :key="`month_${i}`"
                 >
-                    <div v-sticky="{ topSpacing: 32 }">
-                        <div
-                            class="py-4 whitespace-nowrap [writing-mode:vertical-lr]"
-                        >
-                            {{ month.label }}
+                    <!-- sticky container cannot have style -->
+                    <div class="h-full relative">
+                        <div :ref="sticky" class="ui sticky">
+                            <div
+                                class="py-4 translate-y-8 whitespace-nowrap [writing-mode:vertical-lr]"
+                            >
+                                {{ month.label }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,6 +127,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
+import $ from 'jquery'
 import { DateTime, Info } from 'luxon'
 import EventTypeComponent from './components/EventTypeComponent.vue'
 import PathComponent from './components/PathComponent.vue'
@@ -156,6 +160,17 @@ export default {
         window.addEventListener('scroll', this.scroll)
     },
     methods: {
+        sticky(el) {
+            if (!el) {
+                return
+            }
+
+            this.$nextTick(() => {
+                $(el).sticky({
+                    container: el.parentElement,
+                })
+            })
+        },
         scroll() {
             if (this.loading) {
                 return

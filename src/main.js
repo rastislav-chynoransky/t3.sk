@@ -1,11 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import './index.css'
 import { Settings } from 'luxon'
-import sticky from './sticky'
 import linkify from 'vue-linkify'
 import * as Sentry from '@sentry/vue'
+import './index.css'
+import 'semantic-ui-sticky/sticky.js'
+import 'semantic-ui-sticky/sticky.css'
 
 const app = createApp(App)
 
@@ -21,7 +22,6 @@ Settings.defaultLocale = locale
 
 app.use(router)
 
-app.directive('sticky', sticky)
 app.directive('linkified', linkify)
 
 app.mount('#app')
