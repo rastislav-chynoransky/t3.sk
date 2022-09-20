@@ -31,7 +31,7 @@ module.exports = {
             base: '1rem',
             lg: '1.125rem',
             '2xl': '1.35rem',
-            '4xl': '2rem',
+            '4xl': '2.5rem',
             '5xl': '3rem',
             day: 'clamp(6rem, 9vw, 9vw)',
         },
