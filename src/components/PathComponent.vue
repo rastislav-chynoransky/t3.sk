@@ -120,7 +120,7 @@ export default {
                 }
             }
 
-            const points = []
+            const points = ['M ', p2s[0]]
             for (let i = 0; i < this.centers.length; i++) {
                 if (i < this.centers.length - 1) {
                     points.push(`A 50 50 0 1 ${signs[i] < 0 ? 0 : 1}`, p2s[i])

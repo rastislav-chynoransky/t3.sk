@@ -5,34 +5,35 @@ module.exports = {
             borderWidth: {
                 DEFAULT: 'var(--border-width)',
             },
-            colors: {
-                black: '#000',
-                highlight: '#e5ff00',
-                white: '#d3d3d3',
-                red: '#f28000',
-            },
-            fontFamily: {
-                t3: 't3-retouch',
-                media: 'mediasans-regular',
-                gates: '"BS Gates"',
-            },
             gridTemplateColumns: {
                 calendar: 'repeat(7, minmax(var(--sm-col-width), 1fr))',
             },
             lineHeight: {
-                tighter: '1.05',
+                tighter: 1.1,
             },
-            outlineWidth: {
-                3: '3px',
-            },
-            fontSize: {
-                xxs: ['.5rem'],
-                base: ['1rem', { letterSpacing: '.08em' }],
-                '2xl': ['1.35rem', { letterSpacing: '.07em' }],
-                '4xl': ['2rem', { letterSpacing: '.03em' }],
-                '5xl': ['3rem', { letterSpacing: '.03em' }],
-                day: 'clamp(6rem, 9vw, 9vw)',
-            },
+        },
+        colors: {
+            highlight: '#e5ff00',
+            gray: '#d3d3d3',
+            red: '#f28000',
+            white: 'white',
+            black: 'black',
+            transparent: 'transparent',
+        },
+        fontFamily: {
+            t3: 't3-retouch',
+            media: 'mediasans-regular',
+            gates: '"BS Gates"',
+        },
+        fontSize: {
+            xxs: '.5rem',
+            xs: '.75rem',
+            base: '1rem',
+            lg: '1.125rem',
+            '2xl': '1.35rem',
+            '4xl': '2rem',
+            '5xl': '3rem',
+            day: 'clamp(6rem, 9vw, 9vw)',
         },
     },
     plugins: [],

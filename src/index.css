@@ -35,4 +35,12 @@
         --border-width: 1px;
         --sm-col-width: 10rem;
     }
+
+    .font-media {
+        @apply leading-none tracking-wider;
+    }
+
+    .font-gates {
+        @apply leading-snug tracking-normal;
+    }
 }

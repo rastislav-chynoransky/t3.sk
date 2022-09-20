@@ -1,11 +1,11 @@
 <template>
     <div
-        class="font-gates text-base tracking-normal bg-white fixed inset-0 overflow-y-auto overscroll-none px-4 lg:px-8 py-8 lg:py-16 z-50"
+        class="bg-gray fixed inset-0 overflow-y-auto overscroll-none px-4 lg:px-8 py-8 lg:py-16 z-50"
     >
         <div class="flex flex-wrap -mx-4">
             <div class="lg:w-1/2 px-4 lg:px-8">
                 <div class="max-w-sm">
-                    <h2 class="font-media text-base uppercase">O nás</h2>
+                    <h2 class="font-media uppercase">O nás</h2>
 
                     <p class="mt-3">
                         T3&nbsp;&ndash;&nbsp;kultúrny prostriedok
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="mb-[3.25rem] lg:w-1/2 px-4 lg:px-8">
-                <h2 class="font-media text-base uppercase">Kontakt</h2>
+                <h2 class="font-media uppercase">Kontakt</h2>
 
                 <table class="mt-3">
                     <tr>
@@ -86,9 +86,7 @@
                     referrerpolicy="no-referrer-when-downgrade"
                 ></iframe>
 
-                <h2 class="font-media mt-[3.25rem] text-base uppercase">
-                    Newsletter
-                </h2>
+                <h2 class="font-media mt-[3.25rem] uppercase">Newsletter</h2>
 
                 <div class="max-w-lg">
                     <p class="mt-3">
@@ -108,14 +106,14 @@
                             type="email"
                             name="email"
                             :class="[formError ? 'border-red' : 'border-black']"
-                            class="bg-transparent focus:bg-[white] block border-2 border-r-0 grow focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5"
+                            class="bg-transparent focus:bg-white block border-2 border-r-0 grow focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5"
                             placeholder="e-mail"
                         />
                         <button
                             :class="[
                                 formError
-                                    ? 'bg-red text-[white]'
-                                    : 'bg-black text-white',
+                                    ? 'bg-red text-white'
+                                    : 'bg-black text-gray',
                             ]"
                             class="block px-3 text-sm active:text-highlight [font-variation-settings:'wght'_600]"
                             type="submit"
@@ -175,19 +173,16 @@
             </div>
         </div>
 
-        <router-link
-            :to="{ name: 'home' }"
-            @click="menuOpen = !menuOpen"
-            class="fixed bottom-0 font-media mx-2 my-2 px-2 right-0 text-4xl lg:text-5xl uppercase active:text-highlight"
-            >Program</router-link
-        >
+        <MenuLinkComponent :to="{ name: 'home' }">Program</MenuLinkComponent>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import MenuLinkComponent from '../components/MenuLinkComponent.vue'
 
 export default {
+    components: { MenuLinkComponent },
     data() {
         return {
             apiUrl: import.meta.env.VITE_API_URL,

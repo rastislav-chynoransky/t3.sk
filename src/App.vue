@@ -1,17 +1,17 @@
 <template>
-    <div class="font-media text-black">
+    <div>
         <div
             @click="home"
-            class="active:bg-highlight bg-white box-content border-black border-b border-r cursor-pointer fixed h-8 leading-8 left-0 select-none text-base text-center text-black top-0 w-8 z-30"
+            class="active:bg-highlight bg-gray box-content border-black border-b border-r cursor-pointer fixed font-media h-8 leading-8 left-0 select-none text-center top-0 w-8 z-30"
         >
             T3
         </div>
 
         <div
-            class="border-black border-b lg:border-x top-0 grid grid-cols-calendar leading-8 ml-8 sticky text-center text-base w-fit lg:w-auto z-20 uppercase"
+            class="border-black border-b lg:border-x font-media grid grid-cols-calendar leading-8 ml-8 sticky text-center tracking-widest top-0 w-fit lg:w-auto z-20 uppercase"
         >
             <div
-                class="backdrop-blur-sm bg-white/90 [@supports(backdrop-filter:blur(0))]:bg-white/50 border-transparent border-l h-8"
+                class="backdrop-blur-sm bg-gray/90 [@supports(backdrop-filter:blur(0))]:bg-gray/50 border-transparent border-l h-8"
                 v-for="weekday in weekdays"
                 :key="weekday"
             >
@@ -20,13 +20,15 @@
         </div>
 
         <div
-            class="backdrop-blur-sm box-content fixed bg-white/90 [@supports(backdrop-filter:blur(0))]:bg-white/50 border-black border-r bottom-0 left-0 top-8 w-8 z-20"
+            class="backdrop-blur-sm box-content fixed bg-gray/90 [@supports(backdrop-filter:blur(0))]:bg-gray/50 border-black border-r bottom-0 left-0 top-8 w-8 z-20"
         ></div>
 
         <div class="flex w-fit lg:w-full">
-            <div class="sticky left-0 z-20 w-8 shrink-0">
+            <div
+                class="font-media leading-8 left-0 shrink-0 sticky tracking-widest uppercase w-8 z-20"
+            >
                 <div
-                    class="text-base leading-8 uppercase z-20"
+                    class="z-20"
                     :style="`height: max(var(--sm-col-width) * ${month.length}, (100vw - 2rem - var(--border-width))/7 * ${month.length});`"
                     v-for="(month, i) in months"
                     :key="`month_${i}`"
@@ -42,12 +44,12 @@
             </div>
 
             <div
-                class="border-white border-l grid grid-cols-calendar relative text-lg lg:text-lg xl:text-2xl w-fit lg:w-full z-10"
+                class="border-gray border-l grid grid-cols-calendar relative text-lg xl:text-2xl w-fit lg:w-full z-10"
             >
                 <PathComponent :dates="dates" :since="since" :till="till" />
 
                 <div
-                    class="aspect-square leading-tighter relative"
+                    class="aspect-square relative"
                     v-for="(events, key) in sortedCalendar"
                     :key="key"
                 >
@@ -67,8 +69,8 @@
                                         isToday(key)
                                             ? 'text-red'
                                             : key == selected
-                                            ? 'text-white'
-                                            : 'text-highlight group-active:text-white',
+                                            ? 'text-gray'
+                                            : 'text-highlight group-active:text-gray',
                                     ]"
                                     class="font-t3 self-center text-day"
                                 >
@@ -77,13 +79,13 @@
                             </div>
 
                             <div
-                                class="flex flex-col h-full justify-end overflow-hidden p-2 relative z-30"
+                                class="flex flex-col h-full justify-end overflow-hidden p-1.5 relative z-30"
                             >
                                 <EventTypeComponent
                                     :event="events?.[0]"
-                                    class="text-white"
+                                    class="text-gray"
                                 />
-                                <div class="whitespace-pre-line tracking-wide">
+                                <div class="font-media whitespace-pre-line">
                                     {{ formatTitle(events?.[0]) }}
                                 </div>
                             </div>
@@ -105,10 +107,8 @@
         </div>
     </div>
 
-    <router-link
-        :to="{ name: 'info' }"
-        class="fixed bottom-0 font-media mx-2 my-2 px-2 right-0 text-4xl lg:text-5xl uppercase z-40 active:text-highlight"
-        >Info</router-link
+    <MenuLinkComponent :to="{ name: 'info' }" class="z-40"
+        >Info</MenuLinkComponent
     >
 
     <RouterView
@@ -127,9 +127,10 @@ import qs from 'qs'
 import { DateTime, Info } from 'luxon'
 import EventTypeComponent from './components/EventTypeComponent.vue'
 import PathComponent from './components/PathComponent.vue'
+import MenuLinkComponent from './components/MenuLinkComponent.vue'
 
 export default {
-    components: { EventTypeComponent, PathComponent },
+    components: { EventTypeComponent, PathComponent, MenuLinkComponent },
     data() {
         return {
             now: DateTime.now(),

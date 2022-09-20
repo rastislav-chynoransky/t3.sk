@@ -2,10 +2,10 @@
     <div
         ref="container"
         v-if="event"
-        class="backdrop-blur-lg bg-[white]/95 [@supports(backdrop-filter:blur(0))]:bg-[white]/70 border-black lg:border-l bottom-0 fixed font-media overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
+        class="backdrop-blur-lg bg-white/95 [@supports(backdrop-filter:blur(0))]:bg-white/70 border-black lg:border-l bottom-0 fixed font-media overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
     >
         <div
-            class="border-black border-b bg-[white] grid grid-cols-3 px-5 lg:px-10 sticky top-0 w-full z-10"
+            class="border-black border-b bg-white grid grid-cols-3 px-5 lg:px-10 sticky top-0 w-full z-10"
         >
             <div>
                 <router-link
@@ -18,7 +18,7 @@
             </div>
             <div class="text-center">
                 <button
-                    class="cursor-pointer text-base uppercase leading-8 active:text-highlight h-8"
+                    class="cursor-pointer font-media tracking-widest uppercase leading-8 active:text-highlight h-8"
                     @click="$emit('close')"
                 >
                     zavrieť
@@ -36,13 +36,11 @@
         </div>
 
         <div class="mx-5 lg:mx-10 mt-10 mb-16 relative">
-            <EventTypeComponent :event="event" class="text-[white]" />
-            <h2 class="leading-tighter text-2xl whitespace-pre-line">
+            <EventTypeComponent :event="event" class="text-white" />
+            <h2 class="text-2xl whitespace-pre-line">
                 {{ formatTitle(event) }}
             </h2>
-            <div
-                class="flex font-media justify-between leading-tight text-base mt-3"
-            >
+            <div class="flex font-media justify-between leading-tighter mt-3">
                 <div>
                     <span>{{ event._datetime.toFormat('EEEE') }}</span
                     ><br />
@@ -71,7 +69,7 @@
             />
 
             <div
-                class="font-gates my-4 tracking-normal whitespace-pre-wrap"
+                class="font-gates my-4 whitespace-pre-wrap"
                 v-html="formatDescription(event)"
                 v-linkified:options="{
                     className: 'break-words underline hover:no-underline',
