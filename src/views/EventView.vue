@@ -68,12 +68,12 @@
                 :src="event.attributes.image"
             />
 
-            <div class="my-4">
+            <div class="break-words my-4">
                 <div
                     class="whitespace-pre-wrap"
                     v-html="formatDescription(event)"
                     v-linkified:options="{
-                        className: 'break-words underline hover:no-underline',
+                        className: 'underline hover:no-underline',
                     }"
                 ></div>
                 <br />Facebook event:<br />
