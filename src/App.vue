@@ -35,7 +35,7 @@
                 >
                     <!-- sticky container cannot have style -->
                     <div class="h-full relative">
-                        <div :ref="sticky" class="ui sticky">
+                        <div :ref="sticky" class="ui sticky !left-0">
                             <div
                                 class="py-4 translate-y-8 whitespace-nowrap [writing-mode:vertical-lr]"
                             >
