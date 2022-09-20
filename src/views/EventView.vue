@@ -5,20 +5,20 @@
         class="backdrop-blur-lg bg-white/95 [@supports(backdrop-filter:blur(0))]:bg-white/80 border-black lg:border-l bottom-0 fixed overflow-y-auto overscroll-none right-0 top-0 w-full lg:w-[calc(3*(100%-2rem+1px)/7)] z-50"
     >
         <div
-            class="border-black border-b bg-white font-media grid grid-cols-3 leading-8 lg:px-5 sticky top-0 w-full z-10"
+            class="border-black border-b bg-white flex font-media leading-8 sticky top-0 w-full z-10"
         >
             <div>
                 <router-link
-                    v-if="prev"
-                    class="block px-5 active:text-highlight"
-                    :to="{ name: 'event', params: { date: prev.toISODate() } }"
+                    :class="{ hidden: !prev }"
+                    class="block px-5 lg:px-10 active:bg-highlight"
+                    :to="prev ? eventRoute(prev) : ''"
                 >
                     &leftarrow;
                 </router-link>
             </div>
-            <div class="text-center">
+            <div class="grow text-center">
                 <button
-                    class="block active:text-highlight tracking-widest uppercase w-full"
+                    class="block active:bg-highlight tracking-widest uppercase w-full"
                     @click="$emit('close')"
                 >
                     zavrieť
@@ -26,9 +26,9 @@
             </div>
             <div class="text-right">
                 <router-link
-                    v-if="next"
-                    class="block px-5 active:text-highlight"
-                    :to="{ name: 'event', params: { date: next.toISODate() } }"
+                    :class="{ invisible: !next }"
+                    class="block px-5 lg:px-10 active:bg-highlight"
+                    :to="next ? eventRoute(next) : ''"
                 >
                     &rightarrow;
                 </router-link>
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import imagesLoaded from 'imagesloaded'
+import imagesLoaded from 'imagesLoaded'
 import { DateTime } from 'luxon'
 import EventTypeComponent from '../components/EventTypeComponent.vue'
 
@@ -151,6 +151,9 @@ export default {
             return event.attributes.description
                 ? event.attributes.description
                 : event.attributes.facebook_description
+        },
+        eventRoute(date) {
+            return { name: 'event', params: { date: date.toISODate() } }
         },
     },
     watch: {
