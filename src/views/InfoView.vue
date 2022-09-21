@@ -206,6 +206,15 @@ export default {
             formError: false,
         }
     },
+    mounted() {
+        this.$nextTick(() => {
+            if (window.location.hash) {
+                document.querySelector(window.location.hash)?.scrollIntoView({
+                    behavior: 'smooth',
+                })
+            }
+        })
+    },
     methods: {
         subscribe(e) {
             e.preventDefault()

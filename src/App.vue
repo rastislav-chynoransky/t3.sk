@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="{ fixed }">
         <div
             @click="home"
             class="active:bg-highlight bg-gray box-content border-black border-b border-r cursor-pointer fixed font-media h-8 leading-8 left-0 select-none text-center top-0 w-8 z-30"
@@ -127,7 +127,6 @@
 import axios from 'axios'
 import qs from 'qs'
 import $ from 'jquery'
-import slugify from 'slugify'
 import { DateTime, Info } from 'luxon'
 import EventTypeComponent from './components/EventTypeComponent.vue'
 import PathComponent from './components/PathComponent.vue'
@@ -146,6 +145,11 @@ export default {
             weekdays: Info.weekdays(),
             loading: false,
             helpers,
+            lastScrollTop: null,
+            lastScrollLeft: null,
+            lastDocumentHeight: null,
+            lastDocumentWidth: null,
+            fixed: this.$route.name === 'info',
         }
     },
     mounted() {
@@ -174,7 +178,7 @@ export default {
             })
         },
         scroll() {
-            if (this.loading) {
+            if (this.loading || this.fixed || !this.since || !this.till) {
                 return
             }
 
@@ -317,12 +321,11 @@ export default {
             const till = date.plus({ months: 1 }).endOf('month').endOf('week')
             const behavior = this.calendar[date.toISODate()] ? 'smooth' : 'auto'
 
-            const restorePosition = since < this.since
+            const shouldRestore = since < this.since
 
             let scrollTop, documentHeight
             return this.load(since, till, () => {
-                scrollTop = window.scrollY
-                documentHeight = document.body.scrollHeight
+                this.storeScrollPosition()
 
                 if (
                     till < this.since?.minus({ days: 1 }) ||
@@ -333,12 +336,9 @@ export default {
                     this.till = null
                 }
             }).then(() => {
-                if (scrollTop && documentHeight && restorePosition) {
+                if (scrollTop && documentHeight && shouldRestore) {
                     this.$nextTick(() => {
-                        document.documentElement.scrollTop =
-                            scrollTop +
-                            document.body.scrollHeight -
-                            documentHeight
+                        this.restoreScrollPosition()
                     })
                 }
                 this.$nextTick(() => {
@@ -355,6 +355,35 @@ export default {
             this.$router.push({
                 name: 'home',
             })
+        },
+        storeScrollPosition() {
+            this.lastScrollTop = window.scrollY
+            this.lastScrollLeft = window.scrollX
+            this.lastDocumentHeight = document.body.scrollHeight
+            this.lastDocumentWidth = document.body.scrollWidth
+        },
+        restoreScrollPosition() {
+            document.documentElement.scrollLeft =
+                this.lastScrollLeft +
+                document.body.scrollWidth -
+                this.lastDocumentWidth
+            document.documentElement.scrollTop =
+                this.lastScrollTop +
+                document.body.scrollHeight -
+                this.lastDocumentHeight
+        },
+    },
+    watch: {
+        $route(to, from) {
+            if (to.name === 'info') {
+                this.storeScrollPosition()
+                this.fixed = true
+            } else if (from.name === 'info') {
+                this.fixed = false
+                this.$nextTick(() => {
+                    this.restoreScrollPosition()
+                })
+            }
         },
     },
     computed: {
