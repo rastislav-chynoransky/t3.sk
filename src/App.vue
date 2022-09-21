@@ -176,7 +176,7 @@ export default {
                 return
             }
 
-            const delta = window.innerHeight / 3
+            const delta = window.innerHeight / 2
 
             if (window.scrollY < delta) {
                 this.loadPrevious()
@@ -266,7 +266,9 @@ export default {
                     }
                 })
                 .finally(() => {
-                    this.loading = false
+                    this.$nextTick(() => {
+                        this.loading = false
+                    })
                 })
         },
         loadNext() {
@@ -279,7 +281,9 @@ export default {
                 .endOf('week')
 
             return this.load(since, till).finally(() => {
-                this.loading = false
+                this.$nextTick(() => {
+                    this.loading = false
+                })
             })
         },
         isToday(date) {
