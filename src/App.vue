@@ -304,6 +304,7 @@ export default {
         scrollTo(date, behavior) {
             this.$refs[date.toISODate()]?.[0]?.scrollIntoView({
                 behavior,
+                inline: 'start',
             })
         },
         navigate(date) {
