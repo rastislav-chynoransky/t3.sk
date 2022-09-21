@@ -60,7 +60,7 @@
                     <div class="h-full border-b border-r border-highlight">
                         <router-link
                             class="block group h-full"
-                            :to="{ name: 'event', params: { date: key } }"
+                            :to="helpers.route(events[0])"
                             v-if="events.length"
                         >
                             <div
@@ -89,7 +89,7 @@
                                     class="text-gray"
                                 />
                                 <div class="font-media whitespace-pre-line">
-                                    {{ formatTitle(events?.[0]) }}
+                                    {{ helpers.formatTitle(events?.[0]) }}
                                 </div>
                             </div>
                         </router-link>
@@ -128,10 +128,12 @@
 import axios from 'axios'
 import qs from 'qs'
 import $ from 'jquery'
+import slugify from 'slugify'
 import { DateTime, Info } from 'luxon'
 import EventTypeComponent from './components/EventTypeComponent.vue'
 import PathComponent from './components/PathComponent.vue'
 import MenuLinkComponent from './components/MenuLinkComponent.vue'
+import helpers from './events'
 
 export default {
     components: { EventTypeComponent, PathComponent, MenuLinkComponent },
@@ -144,6 +146,7 @@ export default {
             till: null,
             weekdays: Info.weekdays(),
             loading: false,
+            helpers,
         }
     },
     mounted() {
@@ -354,11 +357,6 @@ export default {
                 name: 'home',
             })
         },
-        formatTitle(event) {
-            return event.attributes.title
-                ? event.attributes.title
-                : event.attributes.facebook_title
-        },
     },
     computed: {
         selected() {
@@ -380,15 +378,17 @@ export default {
                 }, {})
         },
         next() {
-            return this.dates.find(date => {
+            const date = this.dates.find(date => {
                 return date.startOf('day') > this.date
             })
+            return date ? this.calendar[date.toISODate()][0] : null
         },
         prev() {
             // return this.dates.findLast(date => {
-            return [...this.dates].reverse().find(date => {
+            const date = [...this.dates].reverse().find(date => {
                 return date.startOf('day') < this.date
             })
+            return date ? this.calendar[date.toISODate()][0] : null
         },
         months() {
             if (!this.since || !this.till) {

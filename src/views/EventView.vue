@@ -11,7 +11,7 @@
                 <router-link
                     :class="{ hidden: !prev }"
                     class="block px-5 lg:px-10 active:bg-highlight"
-                    :to="prev ? eventRoute(prev) : ''"
+                    :to="prev ? helpers.route(prev) : ''"
                 >
                     &leftarrow;
                 </router-link>
@@ -28,7 +28,7 @@
                 <router-link
                     :class="{ invisible: !next }"
                     class="block px-5 lg:px-10 active:bg-highlight"
-                    :to="next ? eventRoute(next) : ''"
+                    :to="next ? helpers.route(next) : ''"
                 >
                     &rightarrow;
                 </router-link>
@@ -38,25 +38,22 @@
         <div class="mx-5 lg:mx-10 mt-10 mb-16 relative">
             <EventTypeComponent :event="event" class="text-white" />
             <h2 class="font-media text-2xl whitespace-pre-line">
-                {{ formatTitle(event) }}
+                {{ helpers.formatTitle(event) }}
             </h2>
             <div class="flex font-media justify-between leading-tighter mt-3">
                 <div>
-                    <span>{{ event._datetime.toFormat('EEEE') }}</span
+                    <span>{{ helpers.formatWeekday(event) }}</span
                     ><br />
-                    <span class="uppercase"
-                        >{{ event._datetime.toFormat('d') }}
-                        {{ event._datetime.toFormat('LLL') }}
-                        {{ event._datetime.toFormat('yyyy') }}</span
+                    <span class="uppercase">{{
+                        helpers.formatDate(event)
+                    }}</span
                     ><br />
-                    <span>{{ formatTime(event._datetime) }}</span>
+                    <span>{{ helpers.formatTime(event) }}</span>
                 </div>
                 <div class="text-right">
-                    <template v-if="event.attributes.price"
+                    <template v-if="helpers.formatPrice(event)"
                         >vstupné<br />odporúčané<br />
-                        {{
-                            formatPrice(event.attributes.price)
-                        }}&euro;</template
+                        {{ helpers.formatPrice(event) }}&euro;</template
                     >
                 </div>
             </div>
@@ -71,7 +68,7 @@
             <div class="break-words my-4">
                 <div
                     class="whitespace-pre-wrap"
-                    v-html="formatDescription(event)"
+                    v-html="helpers.formatDescription(event)"
                     v-linkified:options="{
                         className: 'underline hover:no-underline',
                     }"
@@ -93,6 +90,7 @@
 import imagesLoaded from 'imagesloaded'
 import { DateTime } from 'luxon'
 import EventTypeComponent from '../components/EventTypeComponent.vue'
+import helpers from '../events'
 
 export default {
     components: { EventTypeComponent },
@@ -104,6 +102,7 @@ export default {
     data() {
         return {
             loaded: true,
+            helpers,
         }
     },
     emits: ['close', 'open'],
@@ -122,38 +121,13 @@ export default {
                 this.$emit('close')
             } else if (e.keyCode === 37 && this.prev) {
                 window.setTimeout(() => {
-                    this.$router.push({
-                        name: 'event',
-                        params: { date: this.prev.toISODate() },
-                    })
+                    this.$router.push(helpers.route(this.prev))
                 })
             } else if (e.keyCode === 39 && this.next) {
                 window.setTimeout(() => {
-                    this.$router.push({
-                        name: 'event',
-                        params: { date: this.next.toISODate() },
-                    })
+                    this.$router.push(helpers.route(this.next))
                 })
             }
-        },
-        formatTime(datetime) {
-            return datetime.toLocaleString(DateTime.TIME_SIMPLE)
-        },
-        formatPrice(price) {
-            return price.toFixed(2).replace('.', ',')
-        },
-        formatTitle(event) {
-            return event.attributes.title
-                ? event.attributes.title
-                : event.attributes.facebook_title
-        },
-        formatDescription(event) {
-            return event.attributes.description
-                ? event.attributes.description
-                : event.attributes.facebook_description
-        },
-        eventRoute(date) {
-            return { name: 'event', params: { date: date.toISODate() } }
         },
     },
     watch: {

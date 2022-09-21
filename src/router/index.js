@@ -17,7 +17,7 @@ const router = createRouter({
             component: InfoView,
         },
         {
-            path: '/:date',
+            path: '/:date/:slug',
             name: 'event',
             component: EventView,
         },
