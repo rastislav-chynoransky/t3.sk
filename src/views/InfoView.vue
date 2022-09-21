@@ -3,9 +3,9 @@
         class="bg-gray fixed inset-0 overflow-y-auto overscroll-none px-4 lg:px-8 py-8 lg:py-16 z-50"
     >
         <div class="flex flex-wrap -mx-4">
-            <div class="lg:w-1/2 px-4 lg:px-8">
+            <div class="mb-[3.25rem] lg:w-1/2 px-4 lg:px-8">
                 <div class="max-w-sm">
-                    <h2 class="font-media uppercase">O nás</h2>
+                    <h2 id="o-nas" class="font-media uppercase">O nás</h2>
 
                     <p class="mt-3">
                         T3&nbsp;&ndash;&nbsp;kultúrny prostriedok
@@ -34,13 +34,77 @@
 
                 <div class="max-w-full">
                     <img
-                        class="max-w-lg my-[3.25rem] w-full"
+                        class="max-w-lg my-6 w-full"
                         src="/src/assets/tyrsak.jpeg"
                         alt="T3 na Tyršovom nábreží"
                     />
                 </div>
+
+                <h2 id="newsletter" class="font-media mt-[3.25rem] uppercase">
+                    Newsletter
+                </h2>
+
+                <div class="max-w-lg">
+                    <p class="mt-3">
+                        Raz mesačne vám zašleme súhrn nadchádzajúcich podujatí
+                        a&nbsp;občasne&nbsp;vás budeme informovať
+                        o&nbsp;dôležitých novinkách.
+                    </p>
+                </div>
+
+                <form
+                    @submit="subscribe"
+                    :action="`${apiUrl}/subscription`"
+                    method="POST"
+                >
+                    <div class="flex max-w-md mt-3">
+                        <input
+                            type="email"
+                            name="email"
+                            :class="[formError ? 'border-red' : 'border-black']"
+                            class="bg-transparent focus:bg-white block border-2 border-r-0 grow focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5"
+                            placeholder="E-mail"
+                        />
+                        <button
+                            :class="[
+                                formError
+                                    ? 'bg-red text-white'
+                                    : 'bg-black text-gray',
+                            ]"
+                            class="block px-3 active:text-highlight text-sm [font-variation-settings:'wght'_600]"
+                            type="submit"
+                        >
+                            Odoberať
+                        </button>
+                    </div>
+                </form>
+
+                <!-- <h2
+                    id="fakturacne-udaje"
+                    class="font-media mt-[3.25rem] text-base uppercase"
+                >
+                    Fakturačné údaje
+                </h2>
+                <div class="mt-3">
+                    UM, občianske združenie<br />
+                    Amurská 54, 821 06 Bratislava<br />
+                    <table class="mt-3">
+                        <tr>
+                            <td class="pr-3">IČO</td>
+                            <td>50 040 855</td>
+                        </tr>
+                        <tr>
+                            <td class="pr-3">DIČ</td>
+                            <td>212 038 7126</td>
+                        </tr>
+                        <tr>
+                            <td class="pr-3">IBAN</td>
+                            <td>SK54 0900 0000 0051 2130 1726</td>
+                        </tr>
+                    </table>
+                </div> -->
             </div>
-            <div class="mb-[3.25rem] lg:w-1/2 px-4 lg:px-8">
+            <div class="lg:w-1/2 px-4 lg:px-8">
                 <h2 class="font-media uppercase">Kontakt</h2>
 
                 <table class="mt-3">
@@ -86,68 +150,17 @@
                     referrerpolicy="no-referrer-when-downgrade"
                 ></iframe>
 
-                <h2 class="font-media mt-[3.25rem] uppercase">Newsletter</h2>
-
-                <div class="max-w-lg">
-                    <p class="mt-3">
-                        Raz mesačne vám zašleme súhrn nadchádzajúcich podujatí
-                        a&nbsp;občasne&nbsp;vás budeme informovať
-                        o&nbsp;dôležitých novinkách.
-                    </p>
-                </div>
-
-                <form
-                    @submit="subscribe"
-                    :action="`${apiUrl}/subscription`"
-                    method="POST"
-                >
-                    <div class="flex max-w-lg mt-3 w-full">
-                        <input
-                            type="email"
-                            name="email"
-                            :class="[formError ? 'border-red' : 'border-black']"
-                            class="bg-transparent focus:bg-white block border-2 border-r-0 grow focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5"
-                            placeholder="e-mail"
-                        />
-                        <button
-                            :class="[
-                                formError
-                                    ? 'bg-red text-white'
-                                    : 'bg-black text-gray',
-                            ]"
-                            class="block px-3 text-sm active:text-highlight [font-variation-settings:'wght'_600]"
-                            type="submit"
-                        >
-                            Odoberať
-                        </button>
-                    </div>
-                </form>
-
-                <h2 class="font-media mt-[3.25rem] text-base uppercase">
-                    Fakturačné údaje
+                <h2 id="podporit" class="font-media mt-[3.25rem] uppercase">
+                    Podporiť cez Darujme.sk
                 </h2>
-                <div class="mt-3">
-                    UM, občianske združenie<br />
-                    Amurská 54, 821 06 Bratislava<br />
-                    <table class="mt-3">
-                        <tr>
-                            <td class="pr-3">IČO</td>
-                            <td>50 040 855</td>
-                        </tr>
-                        <tr>
-                            <td class="pr-3">DIČ</td>
-                            <td>212 038 7126</td>
-                        </tr>
-                        <tr>
-                            <td class="pr-3">IBAN</td>
-                            <td>SK54 0900 0000 0051 2130 1726</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
 
-            <div class="w-full px-4 lg:px-8 mb-12 lg:mb-0">
-                <p class="text-xs">Z verejných zdrojov finančne podporujú</p>
+                <div class="mt-3 w-80">
+                    <DonationFormComponent />
+                </div>
+
+                <p class="mt-[3.25rem] text-xs">
+                    Z verejných zdrojov finančne podporujú
+                </p>
                 <div class="flex flex-wrap mt-3">
                     <img
                         src="/src/assets/fpu.svg"
@@ -171,6 +184,8 @@
                     />
                 </div>
             </div>
+
+            <!-- <div class="w-full px-4 lg:px-8 mb-12 lg:mb-0"></div> -->
         </div>
 
         <MenuLinkComponent :to="{ name: 'home' }">Program</MenuLinkComponent>
@@ -180,9 +195,10 @@
 <script>
 import axios from 'axios'
 import MenuLinkComponent from '../components/MenuLinkComponent.vue'
+import DonationFormComponent from '../components/DonationFormComponent.vue'
 
 export default {
-    components: { MenuLinkComponent },
+    components: { MenuLinkComponent, DonationFormComponent },
     data() {
         return {
             apiUrl: import.meta.env.VITE_API_URL,
