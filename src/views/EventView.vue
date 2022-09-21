@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="mx-5 lg:mx-10 mt-10 mb-16 relative">
+        <div class="grayscale mx-5 lg:mx-10 mt-10 mb-16 relative">
             <EventTypeComponent :event="event" class="text-white" />
             <h2 class="font-media text-2xl whitespace-pre-line">
                 {{ helpers.formatTitle(event) }}
@@ -59,7 +59,7 @@
             </div>
 
             <img
-                class="grayscale mb-6 mt-5 w-full"
+                class="mb-6 mt-5 w-full"
                 v-if="event.attributes.image"
                 v-show="loaded"
                 :src="event.attributes.image"
