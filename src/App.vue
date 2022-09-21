@@ -118,7 +118,6 @@
         :event="calendar[selected]?.[0]"
         :prev="prev"
         :next="next"
-        :now="now"
         @close="close"
         @open="open"
     />

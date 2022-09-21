@@ -154,7 +154,7 @@
                     Podporiť cez Darujme.sk
                 </h2>
 
-                <div class="mt-3 w-80">
+                <div class="mt-3 max-w-md">
                     <DonationFormComponent />
                 </div>
 
@@ -199,24 +199,14 @@ import DonationFormComponent from '../components/DonationFormComponent.vue'
 
 export default {
     components: { MenuLinkComponent, DonationFormComponent },
+    props: ['event', 'prev', 'next'],
     data() {
         return {
             apiUrl: import.meta.env.VITE_API_URL,
             formError: false,
         }
     },
-    mounted() {
-        window.addEventListener('keydown', this.keydown)
-    },
-    unmounted() {
-        window.removeEventListener('keydown', this.keydown)
-    },
     methods: {
-        keydown(e) {
-            if (e.keyCode === 27) {
-                this.$router.push({ name: 'home' })
-            }
-        },
         subscribe(e) {
             e.preventDefault()
             const data = new FormData(e.target)
