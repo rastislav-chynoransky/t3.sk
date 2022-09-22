@@ -61,8 +61,8 @@
                         <input
                             type="email"
                             name="email"
-                            :class="[formError ? 'border-red' : 'border-black']"
-                            class="bg-transparent focus:bg-white block border-[1px] border-r-0 grow focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5"
+                            :class="{ 'border-red': formError }"
+                            class="bg-transparent focus:bg-white block border border-r-0 grow focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5"
                             placeholder="E-mail"
                         />
                         <button
@@ -142,13 +142,15 @@
                         </td>
                     </tr>
                 </table>
-                <iframe
-                    class="grayscale h-[19rem] max-w-lg mt-4 w-full"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2662.676205189234!2d17.114085815648956!3d48.13576737922336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c894ba8a682f7%3A0x5ef920aa01f0c604!2sT3%20-%20kult%C3%BArny%20prostriedok!5e0!3m2!1sen!2ssk!4v1655149273176!5m2!1sen!2ssk"
-                    allowfullscreen
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
+                <div class="h-[19rem] max-w-lg mt-4 relative w-full">
+                    <iframe
+                        class="absolute grayscale h-full w-full"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2662.676205189234!2d17.114085815648956!3d48.13576737922336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c894ba8a682f7%3A0x5ef920aa01f0c604!2sT3%20-%20kult%C3%BArny%20prostriedok!5e0!3m2!1sen!2ssk!4v1655149273176!5m2!1sen!2ssk"
+                        allowfullscreen
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
 
                 <h2 id="podporit" class="font-media mt-[3.25rem] uppercase">
                     Podporiť cez Darujme.sk
