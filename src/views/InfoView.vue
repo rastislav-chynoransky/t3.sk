@@ -32,12 +32,14 @@
                     </p>
                 </div>
 
-                <div class="max-w-full">
-                    <img
-                        class="max-w-lg my-6 w-full"
-                        src="/src/assets/tyrsak.jpeg"
-                        alt="T3 na Tyršovom nábreží"
-                    />
+                <div class="max-w-lg my-6">
+                    <div class="pb-[63.18%] relative">
+                        <img
+                            class="absolute inset-0"
+                            src="/src/assets/tyrsak.jpeg"
+                            alt="T3 na Tyršovom nábreží"
+                        />
+                    </div>
                 </div>
 
                 <h2 id="newsletter" class="font-media mt-[3.25rem] uppercase">
