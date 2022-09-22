@@ -62,7 +62,7 @@
                             type="email"
                             name="email"
                             :class="[formError ? 'border-red' : 'border-black']"
-                            class="bg-transparent focus:bg-white block border-2 border-r-0 grow focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5"
+                            class="bg-transparent focus:bg-white block border-[1px] border-r-0 grow focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5"
                             placeholder="E-mail"
                         />
                         <button

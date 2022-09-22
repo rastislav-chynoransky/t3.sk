@@ -15,7 +15,7 @@
                     value="periodical"
                 />
                 <label
-                    class="border-2 block cursor-pointer peer-checked:bg-highlight px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
+                    class="border block cursor-pointer peer-checked:bg-highlight px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
                     for="periodicity_periodical"
                 >
                     Mesačne
@@ -31,7 +31,7 @@
                 />
                 <label
                     for="periodicity_onetime"
-                    class="border-2 block cursor-pointer peer-checked:bg-highlight px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
+                    class="border block cursor-pointer peer-checked:bg-highlight px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
                 >
                     Jednorazovo
                 </label>
@@ -56,7 +56,7 @@
                 />
                 <label
                     :for="`value_${option}`"
-                    class="peer-checked:bg-highlight block border-2 cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
+                    class="peer-checked:bg-highlight block border cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
                 >
                     {{ option }}&euro;</label
                 >
@@ -79,7 +79,7 @@
                     : 'bg-transparent focus:bg-white',
             ]"
             v-model="customValue"
-            class="block border-2 my-0.5 focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5 w-full"
+            class="block border my-0.5 focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5 w-full"
             type="number"
             min="1"
             placeholder="Vlastnou sumou"
@@ -103,7 +103,7 @@
                 />
                 <label
                     for="payment_method_card"
-                    class="peer-checked:bg-highlight block border-2 cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
+                    class="peer-checked:bg-highlight block border cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
                     >Kartou</label
                 >
             </div>
@@ -119,7 +119,7 @@
                 />
                 <label
                     for="payment_method_wire"
-                    class="peer-checked:bg-highlight block border-2 cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
+                    class="peer-checked:bg-highlight block border cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
                     >Prevodom</label
                 >
             </div>
@@ -133,7 +133,7 @@
                 />
                 <label
                     for="internet_banking"
-                    class="peer-checked:bg-highlight block border-2 cursor-pointer px-1.5 py-1.5 text-center [font-variation-settings:'wght'_600]"
+                    class="peer-checked:bg-highlight block border cursor-pointer px-1.5 py-1.5 text-center [font-variation-settings:'wght'_600]"
                     >IB
                 </label>
             </div>
@@ -152,7 +152,7 @@
                 />
                 <label
                     for="payment_method_tatra_pay"
-                    class="peer-checked:bg-highlight block border-2 cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
+                    class="peer-checked:bg-highlight block border cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
                     >TatraPay</label
                 >
             </div>
@@ -168,7 +168,7 @@
                 />
                 <label
                     for="payment_method_sporo_pay"
-                    class="peer-checked:bg-highlight block border-2 cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
+                    class="peer-checked:bg-highlight block border cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
                     >SporoPay</label
                 >
             </div>
@@ -184,7 +184,7 @@
                 />
                 <label
                     for="payment_method_vub"
-                    class="peer-checked:bg-highlight block border-2 cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
+                    class="peer-checked:bg-highlight block border cursor-pointer px-3 py-1.5 text-center [font-variation-settings:'wght'_600]"
                     >VÚB</label
                 >
             </div>
@@ -194,7 +194,7 @@
             <input
                 type="text"
                 name="first_name"
-                class="bg-transparent focus:bg-white block border-2 my-1 focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5 w-full"
+                class="bg-transparent focus:bg-white block border my-1 focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5 w-full"
                 placeholder="Krstné meno"
                 required
             />
@@ -202,7 +202,7 @@
             <input
                 type="text"
                 name="last_name"
-                class="bg-transparent focus:bg-white block border-2 my-1 focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5 w-full"
+                class="bg-transparent focus:bg-white block border my-1 focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5 w-full"
                 placeholder="Priezvisko"
                 required
             />
@@ -210,7 +210,7 @@
             <input
                 type="text"
                 name="email"
-                class="bg-transparent focus:bg-white block border-2 my-1 focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5 w-full"
+                class="bg-transparent focus:bg-white block border my-1 focus:outline-none rounded-none placeholder:text-black/50 px-3 py-1.5 w-full"
                 placeholder="E-mail"
                 required
             />
@@ -219,7 +219,7 @@
         <div class="mt-3">
             <label>
                 <input
-                    class="accent-highlight border-2 leading-4 mr-1"
+                    class="accent-highlight border leading-4 mr-1"
                     type="checkbox"
                     required
                 />
@@ -233,7 +233,7 @@
         </div>
 
         <button
-            class="bg-black block border-2 border-black mt-3 px-3 py-1.5 text-gray active:text-highlight text-sm [font-variation-settings:'wght'_600]"
+            class="bg-black block border border-black mt-3 px-3 py-1.5 text-gray active:text-highlight text-sm [font-variation-settings:'wght'_600]"
             type="submit"
         >
             Darovať
