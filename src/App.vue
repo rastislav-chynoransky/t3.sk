@@ -307,7 +307,7 @@ export default {
                 this.navigate(this.now)
             }
         },
-        scrollTo(date, behavior) {
+        scrollTo(date, behavior = 'auto') {
             this.$refs[date.toISODate()]?.[0]?.scrollIntoView({
                 behavior,
                 inline: 'start',
@@ -323,7 +323,6 @@ export default {
 
             const shouldRestore = since < this.since
 
-            let scrollTop, documentHeight
             return this.load(since, till, () => {
                 this.storeScrollPosition()
 
@@ -336,12 +335,10 @@ export default {
                     this.till = null
                 }
             }).then(() => {
-                if (scrollTop && documentHeight && shouldRestore) {
-                    this.$nextTick(() => {
-                        this.restoreScrollPosition()
-                    })
-                }
                 this.$nextTick(() => {
+                    if (shouldRestore) {
+                        this.restoreScrollPosition()
+                    }
                     this.scrollTo(date, behavior)
                 })
             })
@@ -357,36 +354,68 @@ export default {
             })
         },
         storeScrollPosition() {
+            if (this.fixed) {
+                return
+            }
+
             this.lastScrollTop = window.scrollY
             this.lastScrollLeft = window.scrollX
             this.lastDocumentHeight = document.body.scrollHeight
             this.lastDocumentWidth = document.body.scrollWidth
         },
         restoreScrollPosition() {
-            document.documentElement.scrollLeft =
-                this.lastScrollLeft +
-                document.body.scrollWidth -
+            if (
+                this.lastScrollTop !== null &&
+                this.lastDocumentHeight !== null
+            ) {
+                document.documentElement.scrollTop =
+                    this.lastScrollTop +
+                    document.body.scrollHeight -
+                    this.lastDocumentHeight
+            }
+
+            if (
+                this.lastScrollLeft !== null &&
+                this.lastDocumentWidth !== null
+            ) {
+                document.documentElement.scrollLeft =
+                    this.lastScrollLeft +
+                    document.body.scrollWidth -
+                    this.lastDocumentWidth
+            }
+        },
+        hasScrollPosition() {
+            return (
+                this.lastScrollTop ||
+                this.lastScrollLeft ||
+                this.lastDocumentHeight ||
                 this.lastDocumentWidth
-            document.documentElement.scrollTop =
-                this.lastScrollTop +
-                document.body.scrollHeight -
-                this.lastDocumentHeight
+            )
         },
     },
     watch: {
         $route(to, from) {
             if (to.name === 'info') {
-                this.storeScrollPosition()
+                if (this.loaded) {
+                    this.storeScrollPosition()
+                }
                 this.fixed = true
             } else if (from.name === 'info') {
                 this.fixed = false
                 this.$nextTick(() => {
-                    this.restoreScrollPosition()
+                    if (this.hasScrollPosition()) {
+                        this.restoreScrollPosition()
+                    } else {
+                        this.scrollTo(this.now)
+                    }
                 })
             }
         },
     },
     computed: {
+        loaded() {
+            return Object.keys(this.calendar).length > 0
+        },
         selected() {
             return this.date?.toISODate()
         },
