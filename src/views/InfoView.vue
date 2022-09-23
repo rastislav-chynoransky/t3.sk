@@ -46,13 +46,11 @@
                     Newsletter
                 </h2>
 
-                <div class="max-w-lg">
-                    <p class="mt-3">
-                        Raz mesačne vám zašleme súhrn nadchádzajúcich podujatí
-                        a&nbsp;občasne&nbsp;vás budeme informovať
-                        o&nbsp;dôležitých novinkách.
-                    </p>
-                </div>
+                <p class="max-w-lg mt-3">
+                    Raz mesačne vám zašleme súhrn nadchádzajúcich podujatí
+                    a&nbsp;občasne&nbsp;vás budeme informovať o&nbsp;dôležitých
+                    novinkách.
+                </p>
 
                 <form
                     @submit="subscribe"
@@ -155,8 +153,15 @@
                 </div>
 
                 <h2 id="podporit" class="font-media mt-[3.25rem] uppercase">
-                    Podporiť cez Darujme.sk
+                    Podpor T3
                 </h2>
+
+                <p class="max-w-md mt-3">
+                    Zabudol si niekedy dať dobrovoľné vstupné a&nbsp;škrie ťa
+                    to, chceš podporiť našu činnosť len tak, alebo nás máš len
+                    fakt rád? Pošli nám jednorázový príspevok alebo si nastav
+                    pravidelný&nbsp;dar.
+                </p>
 
                 <div class="mt-3 max-w-md">
                     <DonationFormComponent />

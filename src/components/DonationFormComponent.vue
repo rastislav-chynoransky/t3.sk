@@ -236,7 +236,7 @@
             class="bg-black block border mt-3 px-3 py-1.5 text-gray active:text-highlight text-sm [font-variation-settings:'wght'_600]"
             type="submit"
         >
-            Darovať
+            Podporiť
         </button>
 
         <input
