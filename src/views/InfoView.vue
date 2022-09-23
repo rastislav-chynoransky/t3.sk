@@ -46,9 +46,9 @@
                     Newsletter
                 </h2>
 
-                <p class="max-w-lg mt-3">
-                    Raz mesačne vám zašleme súhrn nadchádzajúcich podujatí
-                    a&nbsp;občasne&nbsp;vás budeme informovať o&nbsp;dôležitých
+                <p class="max-w-md mt-3">
+                    Raz mesačne ti zašleme súhrn nadchádzajúcich podujatí
+                    a&nbsp;občasne&nbsp;ťa budeme informovať o&nbsp;dôležitých
                     novinkách.
                 </p>
 
@@ -126,7 +126,7 @@
                                 class="underline hover:no-underline active:text-highlight"
                                 href="https://www.instagram.com/t3kulturnyprostriedok/"
                                 target="_blank"
-                                >@t3kulturnyprostriedok</a
+                                >t3kulturnyprostriedok</a
                             >
                         </td>
                     </tr>
@@ -158,8 +158,8 @@
 
                 <p class="max-w-md mt-3">
                     Zabudol si niekedy dať dobrovoľné vstupné a&nbsp;škrie ťa
-                    to, chceš podporiť našu činnosť len tak, alebo nás máš len
-                    fakt rád? Pošli nám jednorázový príspevok alebo si nastav
+                    to, chceš podporiť našu činnosť len tak, alebo nás máš fakt
+                    rád? Pošli nám jednorazový príspevok alebo si nastav
                     pravidelný&nbsp;dar.
                 </p>
 
