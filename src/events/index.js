@@ -46,6 +46,10 @@ const formatWeekday = event => {
     return event._datetime.toFormat('EEEE')
 }
 
+const image = event => {
+    return `${import.meta.env.VITE_IMAGES_HOST}/${event.attributes.image}`
+}
+
 export default {
     route,
     formatTitle,
@@ -54,4 +58,5 @@ export default {
     formatDate,
     formatTime,
     formatWeekday,
+    image,
 }

@@ -62,7 +62,7 @@
                 class="mb-6 mt-5 w-full"
                 v-if="event.attributes.image"
                 v-show="loaded"
-                :src="event.attributes.image"
+                :src="helpers.image(event)"
             />
 
             <div class="break-words my-4">
@@ -73,14 +73,16 @@
                         className: 'underline hover:no-underline',
                     }"
                 ></div>
-                <br />Facebook event:<br />
-                <a
-                    class="underline hover:no-underline"
-                    :href="`https://www.facebook.com/events/${event.attributes.facebook_id}`"
-                    >https://www.facebook.com/events/{{
-                        event.attributes.facebook_id
-                    }}</a
-                >
+                <template v-if="event.attributes.facebook_id">
+                    <br />Facebook event:<br />
+                    <a
+                        class="underline hover:no-underline"
+                        :href="`https://www.facebook.com/events/${event.attributes.facebook_id}`"
+                        >https://www.facebook.com/events/{{
+                            event.attributes.facebook_id
+                        }}</a
+                    >
+                </template>
             </div>
         </div>
     </div>
