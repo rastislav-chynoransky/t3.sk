@@ -68,10 +68,10 @@
                         <button
                             :class="[
                                 formError
-                                    ? 'bg-red text-white'
-                                    : 'bg-black text-gray',
+                                    ? 'border-red bg-red text-white'
+                                    : 'border-black bg-black text-gray',
                             ]"
-                            class="block px-3 active:text-highlight text-sm [font-variation-settings:'wght'_600]"
+                            class="block border active:border-highlight px-3 active:text-highlight text-sm [font-variation-settings:'wght'_600]"
                             type="submit"
                         >
                             Odoberať
