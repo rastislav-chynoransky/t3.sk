@@ -26,7 +26,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-events.json
 mediasansweb-regular.woff
 mediasansweb-regular.woff2
 BS-Gates.woff

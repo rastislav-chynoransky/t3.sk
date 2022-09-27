@@ -9,7 +9,7 @@
         >
             <div>
                 <router-link
-                    :class="{ hidden: !prev }"
+                    :class="{ invisible: !prev }"
                     class="block px-5 lg:px-10 active:bg-highlight"
                     :to="prev ? helpers.route(prev) : ''"
                 >
