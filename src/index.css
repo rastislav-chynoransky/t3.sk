@@ -5,8 +5,8 @@
 @layer base {
     @font-face {
         font-family: 't3-retouch';
-        src: url('/src/assets/fonts/t3-retouch-Regular.woff2') format('woff2'),
-            url('/src/assets/fonts/t3-retouch-Regular.woff') format('woff');
+        src: url('/src/assets/fonts/t3.woff2') format('woff2'),
+            url('/src/assets/fonts/t3.woff') format('woff');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
