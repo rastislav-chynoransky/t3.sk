@@ -8,7 +8,7 @@
         </div>
 
         <div
-            class="border-black border-b lg:border-x font-media grid grid-cols-calendar leading-8 ml-8 sticky text-center tracking-widest top-0 w-fit lg:w-auto z-20 uppercase"
+            class="border-black border-b font-media grid grid-cols-calendar leading-8 ml-8 sticky text-center tracking-widest top-0 w-fit lg:w-auto z-20 uppercase"
         >
             <div
                 class="backdrop-blur-sm bg-gray/90 [@supports(backdrop-filter:blur(0))]:bg-gray/50 border-transparent border-l h-8"
