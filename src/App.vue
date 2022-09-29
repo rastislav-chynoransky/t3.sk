@@ -23,7 +23,7 @@
             class="backdrop-blur-sm box-content fixed bg-gray/90 [@supports(backdrop-filter:blur(0))]:bg-gray/50 border-black border-r bottom-0 left-0 top-8 w-8 z-20"
         ></div>
 
-        <div class="flex w-fit lg:w-full">
+        <div class="flex w-fit">
             <div
                 class="font-media leading-8 left-0 shrink-0 sticky tracking-widest uppercase w-8 z-20"
             >
