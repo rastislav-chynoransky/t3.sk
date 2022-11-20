@@ -318,7 +318,7 @@ export default {
                 .minus({ months: 1 })
                 .startOf('month')
                 .startOf('week')
-            const till = date.plus({ months: 1 }).endOf('month').endOf('week')
+            const till = date.plus({ months: 3 }).endOf('month').endOf('week')
             const behavior = this.calendar[date.toISODate()] ? 'smooth' : 'auto'
 
             const shouldRestore = since < this.since
