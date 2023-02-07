@@ -1,8 +1,8 @@
 <template>
     <div
-        class="bg-gray fixed inset-0 overflow-y-auto overscroll-none px-4 lg:px-8 py-8 lg:py-16 z-50"
+        class="bg-gray fixed inset-0 overflow-y-auto overscroll-none px-4 lg:px-16 py-8 lg:py-16 z-50"
     >
-        <div class="flex flex-wrap -mx-4">
+        <div class="flex flex-wrap -mx-4 lg:-mx-8">
             <div class="mb-[3.25rem] lg:w-1/2 px-4 lg:px-8">
                 <div class="max-w-sm">
                     <h2 id="o-nas" class="font-media uppercase">O nás</h2>
@@ -197,17 +197,22 @@
             <!-- <div class="w-full px-4 lg:px-8 mb-12 lg:mb-0"></div> -->
         </div>
 
-        <MenuLinkComponent :to="{ name: 'home' }">Program</MenuLinkComponent>
+        <MenuComponent>
+            <MenuLinkComponent :to="{ name: '2-percenta' }">2%</MenuLinkComponent>
+            <MenuLinkComponent :to="{ name: 'info' }">Info</MenuLinkComponent>
+            <MenuLinkComponent :to="{ name: 'home' }">Program</MenuLinkComponent>
+        </MenuComponent>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-import MenuLinkComponent from '../components/MenuLinkComponent.vue'
 import DonationFormComponent from '../components/DonationFormComponent.vue'
+import MenuComponent from '../components/MenuComponent.vue'
+import MenuLinkComponent from '../components/MenuLinkComponent.vue'
 
 export default {
-    components: { MenuLinkComponent, DonationFormComponent },
+    components: { MenuComponent, DonationFormComponent, MenuLinkComponent },
     props: ['event', 'prev', 'next'],
     data() {
         return {

@@ -110,9 +110,11 @@
         </div>
     </div>
 
-    <MenuLinkComponent :to="{ name: 'info' }" class="z-40"
-        >Info</MenuLinkComponent
-    >
+    <MenuComponent class="z-40">
+        <MenuLinkComponent :to="{ name: '2-percenta' }">2%</MenuLinkComponent>
+        <MenuLinkComponent :to="{ name: 'info' }">Info</MenuLinkComponent>
+        <MenuLinkComponent :to="{ name: 'home' }">Program</MenuLinkComponent>
+    </MenuComponent>
 
     <RouterView
         :event="calendar[selected]?.[0]"
@@ -130,11 +132,12 @@ import $ from 'jquery'
 import { DateTime, Info } from 'luxon'
 import EventTypeComponent from './components/EventTypeComponent.vue'
 import PathComponent from './components/PathComponent.vue'
+import MenuComponent from './components/MenuComponent.vue'
 import MenuLinkComponent from './components/MenuLinkComponent.vue'
 import helpers from './events'
 
 export default {
-    components: { EventTypeComponent, PathComponent, MenuLinkComponent },
+    components: { EventTypeComponent, PathComponent, MenuComponent, MenuLinkComponent },
     data() {
         return {
             now: DateTime.now(),
@@ -149,7 +152,7 @@ export default {
             lastScrollLeft: null,
             lastDocumentHeight: null,
             lastDocumentWidth: null,
-            fixed: this.$route.name === 'info',
+            fixed: this.$route.name === 'info' || this.$route.name === '2-percenta',
         }
     },
     mounted() {
@@ -395,12 +398,12 @@ export default {
     },
     watch: {
         $route(to, from) {
-            if (to.name === 'info') {
+            if (to.name === 'info' || to.name === '2-percenta') {
                 if (this.loaded) {
                     this.storeScrollPosition()
                 }
                 this.fixed = true
-            } else if (from.name === 'info') {
+            } else if (from.name === 'info' || from.name === '2-percenta') {
                 this.fixed = false
                 this.$nextTick(() => {
                     if (this.hasScrollPosition()) {
