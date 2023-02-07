@@ -18,7 +18,7 @@
             <div class="lg:w-1/2 px-4 lg:px-8">
                 <h2 class="mb-4 font-media uppercase leading-snug">Daňové si podávam sám*a</h2>
 
-                <p>Údaje T3 - kultúrneho prostriedku:</p>
+                <p>Údaje T3 – kultúrneho prostriedku:</p>
 
                 <p>
                     Obchodné meno (názov): UM<br />
