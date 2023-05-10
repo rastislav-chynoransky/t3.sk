@@ -173,23 +173,23 @@
                 <div class="flex flex-wrap mt-3">
                     <img
                         src="/src/assets/fpu.svg"
-                        class="h-5 lg:h-6 mb-5 mr-5 lg:mr-6"
+                        class="h-5 lg:h-8 mb-6 mr-6 lg:mr-6"
                         alt="Fond na podporu umenia"
                     />
                     <img
-                        src="/src/assets/ba.png"
-                        class="h-5 lg:h-6 mb-5 mr-5 lg:mr-6"
-                        alt="Nadácia mesta Bratislavy"
-                    />
-                    <img
                         src="/src/assets/bsk.svg"
-                        class="h-5 lg:h-6 mb-5 mr-5 lg:mr-6"
+                        class="h-5 lg:h-8 mb-6 mr-6 lg:mr-6"
                         alt="Bratislavský samosprávny kraj"
                     />
                     <img
-                        src="/src/assets/petrzalka.png"
-                        class="h-5 lg:h-6 mb-5 mr-5 lg:mr-6"
-                        alt="Realizované s finančnou podporou mestskej časti Bratislava-Petržalka"
+                        src="/src/assets/ba.png"
+                        class="h-5 lg:h-8 mb-6 mr-6 lg:mr-6"
+                        alt="Nadácia mesta Bratislavy"
+                    />
+                    <img
+                        src="/src/assets/bkis.svg"
+                        class="h-5 lg:h-8 mb-6 mr-6 lg:mr-6"
+                        alt="Bratislavské kultúrne a informačné stredisko"
                     />
                 </div>
             </div>
@@ -198,8 +198,8 @@
         </div>
 
         <MenuComponent>
-            <MenuLinkComponent :to="{ name: '2-percenta' }">2%</MenuLinkComponent>
-            <MenuLinkComponent :to="{ name: 'info' }">Info</MenuLinkComponent>
+            <!-- <MenuLinkComponent :to="{ name: '2-percenta' }">2%</MenuLinkComponent> -->
+            <!-- <MenuLinkComponent :to="{ name: 'info' }">Info</MenuLinkComponent> -->
             <MenuLinkComponent :to="{ name: 'home' }">Program</MenuLinkComponent>
         </MenuComponent>
     </div>

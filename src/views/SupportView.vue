@@ -2,10 +2,10 @@
     <div
         class="bg-gray fixed inset-0 overflow-y-auto overscroll-none px-4 lg:px-16 pt-8 lg:pt-16 pb-40 z-50"
     >
-        <h1 class="font-media text-4xl mb-12">Darujte 2% z daní T3</h1>
+        <h1 class="font-media text-4xl mb-12">Venujte 2% z daní T3</h1>
 
         <div class="flex flex-wrap -mx-4 lg:-mx-8">
-            <div class="mb-[3.25rem] lg:w-1/2 px-4 lg:px-8">
+            <div class="mb-6 lg:mb-12 lg:w-1/2 px-4 lg:px-8">
                 <h2 class="mb-4 font-media uppercase leading-snug">Daňové za mňa podáva zamestnávateľ</h2>
 
                 <ul class="list-decimal max-w-sm space-y-2 ml-4">
@@ -22,18 +22,14 @@
 
                 <p>
                     Obchodné meno (názov): UM<br />
-                    IČO: 50040855<br />
+                    IČO: 50040855
                 </p>
 
                 <ul class="mt-3 list-decimal max-w-sm space-y-2 ml-4">
                     <li>Vyplňte vyhlásenie na poukázanie podielu zaplatenej dane vyplníte priamo v daňovom priznaní k dani z príjmov.</li>
                     <li>Následne vyplnené daňové priznanie podáte do 31. marca</li>
                 </ul>
-
-
             </div>
-
-            <!-- <div class="w-full px-4 lg:px-8 mb-12 lg:mb-0"></div> -->
         </div>
 
         <MenuComponent>
