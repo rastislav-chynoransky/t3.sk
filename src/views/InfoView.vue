@@ -173,28 +173,28 @@
                 <div class="flex flex-wrap mt-3">
                     <img
                         src="/src/assets/fpu.svg"
-                        class="h-5 lg:h-8 mb-6 mr-6 lg:mr-6"
+                        class="h-8 mb-6 mr-6"
                         alt="Fond na podporu umenia"
                     />
                     <img
                         src="/src/assets/bsk.svg"
-                        class="h-5 lg:h-8 mb-6 mr-6 lg:mr-6"
+                        class="h-8 mb-6 mr-6"
                         alt="Bratislavský samosprávny kraj"
                     />
                     <img
                         src="/src/assets/ba.png"
-                        class="h-5 lg:h-8 mb-6 mr-6 lg:mr-6"
+                        class="h-8 mb-6 mr-6"
                         alt="Nadácia mesta Bratislavy"
                     />
                     <img
                         src="/src/assets/bkis.svg"
-                        class="h-5 lg:h-8 mb-6 mr-6 lg:mr-6"
+                        class="h-8 mb-6 mr-6"
                         alt="Bratislavské kultúrne a informačné stredisko"
                     />
                 </div>
             </div>
 
-            <!-- <div class="w-full px-4 lg:px-8 mb-12 lg:mb-0"></div> -->
+            <div class="w-full mb-12 lg:mb-0"></div>
         </div>
 
         <MenuComponent>
