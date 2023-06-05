@@ -192,6 +192,17 @@
                         alt="Bratislavské kultúrne a informačné stredisko"
                     />
                 </div>
+
+                <p class="mt-2 text-xs">
+                    Partneri
+                </p>
+                <div class="flex flex-wrap mt-3">
+                    <img
+                        src="/src/assets/if.png"
+                        class="h-12 mb-6 mr-6"
+                        alt="Institut français de Slovaquie"
+                    />
+                </div>
             </div>
 
             <div class="w-full mb-12 lg:mb-0"></div>
