@@ -15,23 +15,25 @@ const route = event => {
 }
 
 const formatTitle = event => {
-    return event.attributes.title
-        ? event.attributes.title
-        : event.attributes.facebook_title
+    return event.attributes.title || event.attributes.facebook_title
 }
 
 const formatDescription = event => {
-    return event.attributes.description
-        ? event.attributes.description
-        : event.attributes.facebook_description
+    return event.attributes.description || event.attributes.facebook_description
 }
 
 const formatPrice = event => {
-    if (event.attributes.price === null) {
+    const price = event.attributes.price || event.attributes.facebook_price
+
+    if (price === null) {
         return null
     }
 
-    return event.attributes.price.toFixed(2).replace('.', ',')
+    return price.attributes.price.toFixed(2).replace('.', ',')
+}
+
+export const formatType = event => {
+    return event.attributes.type || event.attributes.facebook_type
 }
 
 const formatDate = event => {
@@ -55,6 +57,7 @@ export default {
     formatTitle,
     formatDescription,
     formatPrice,
+    formatType,
     formatDate,
     formatTime,
     formatWeekday,
