@@ -29,7 +29,7 @@ const formatPrice = event => {
         return null
     }
 
-    return price.attributes.price.toFixed(2).replace('.', ',')
+    return price.toFixed(2).replace('.', ',')
 }
 
 export const formatType = event => {
