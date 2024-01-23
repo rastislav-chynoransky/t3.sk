@@ -12,7 +12,7 @@
                     <li>Požiadajte svojho zamestnávateľa o vykonanie ročného zúčtovania preddavkov na daň z príjmov a o vystavenie potvrdenia o zaplatení dane.</li>
                     <li>Vyplňte <a class="underline hover:no-underline" href="/2percenta_2023_UM.pdf" target="_blank">vyhlásenie o poukázaní 2% dane (pdf)</a>.<br />
                         Uveďte vaše meno, rodné číslo, bydlisko a sumu zodpovedajúcu 2% zaplatenej dane.</li>
-                    <li>Najneskôr do 30. apríla 2023 pošlite/doručte oba formuláre daňovému úradu v mieste vášho bydliska.</li>
+                    <li>Najneskôr do 30. apríla pošlite/doručte oba formuláre daňovému úradu v mieste vášho bydliska.</li>
                 </ul>
             </div>
             <div class="lg:w-1/2 px-4 lg:px-8">
