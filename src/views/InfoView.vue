@@ -209,8 +209,8 @@
         </div>
 
         <MenuComponent>
-            <MenuLinkComponent :to="{ name: '2-percenta' }">2%</MenuLinkComponent>
-            <MenuLinkComponent :to="{ name: 'info' }">Info</MenuLinkComponent>
+<!--            <MenuLinkComponent :to="{ name: '2-percenta' }">2%</MenuLinkComponent>-->
+<!--            <MenuLinkComponent :to="{ name: 'info' }">Info</MenuLinkComponent>-->
             <MenuLinkComponent :to="{ name: 'home' }">Program</MenuLinkComponent>
         </MenuComponent>
     </div>
