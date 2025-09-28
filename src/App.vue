@@ -140,7 +140,8 @@ export default {
     components: { EventTypeComponent, PathComponent, MenuComponent, MenuLinkComponent },
     data() {
         return {
-            now: DateTime.now(),
+            today: new Date(),
+            now: new Date('2025-06-21'),
             date: null,
             calendar: {},
             since: null,
@@ -296,7 +297,7 @@ export default {
             })
         },
         isToday(date) {
-            return date === this.now.toISODate()
+            return date === this.today.toISODate()
         },
         home() {
             this.$router.push({
