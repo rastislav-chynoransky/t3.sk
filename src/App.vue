@@ -140,8 +140,8 @@ export default {
     components: { EventTypeComponent, PathComponent, MenuComponent, MenuLinkComponent },
     data() {
         return {
-            today: new Date(),
-            now: new Date('2025-06-21'),
+            today: DateTime.now(),
+            now: DateTime.fromISO('2025-06-21'),
             date: null,
             calendar: {},
             since: null,
