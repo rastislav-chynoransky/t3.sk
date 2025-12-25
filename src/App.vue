@@ -141,8 +141,8 @@ export default {
     data() {
         return {
             today: DateTime.now(),
-            // now: DateTime.fromISO('2025-06-21'),
-            now: DateTime.now(),
+            now: DateTime.fromISO('2025-06-21'),
+            // now: DateTime.now(),
             date: null,
             calendar: {},
             since: null,
